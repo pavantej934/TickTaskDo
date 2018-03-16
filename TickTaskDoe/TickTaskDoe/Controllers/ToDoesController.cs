@@ -23,7 +23,7 @@ namespace TickTaskDoe.Controllers
 
 
         /// <summary>
-        /// //Builds a ToDo list for the current user
+        ///Builds a ToDo list for the current user.
         /// </summary>
         /// <returns></returns>
         private IEnumerable<ToDo> MyToDoList()
