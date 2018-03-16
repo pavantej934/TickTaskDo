@@ -210,6 +210,26 @@
     <Compile Include="Migrations\201802032318063_TTD2.Designer.cs">
       <DependentUpon>201802032318063_TTD2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803152028158_TTD3.cs" />
+    <Compile Include="Migrations\201803152028158_TTD3.Designer.cs">
+      <DependentUpon>201803152028158_TTD3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803152034472_TTD4.cs" />
+    <Compile Include="Migrations\201803152034472_TTD4.Designer.cs">
+      <DependentUpon>201803152034472_TTD4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803152042448_TTD5.cs" />
+    <Compile Include="Migrations\201803152042448_TTD5.Designer.cs">
+      <DependentUpon>201803152042448_TTD5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803152057009_TTD6.cs" />
+    <Compile Include="Migrations\201803152057009_TTD6.Designer.cs">
+      <DependentUpon>201803152057009_TTD6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803152108247_TTD7.cs" />
+    <Compile Include="Migrations\201803152108247_TTD7.Designer.cs">
+      <DependentUpon>201803152108247_TTD7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -306,6 +326,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802032318063_TTD2.resx">
       <DependentUpon>201802032318063_TTD2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803152028158_TTD3.resx">
+      <DependentUpon>201803152028158_TTD3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803152034472_TTD4.resx">
+      <DependentUpon>201803152034472_TTD4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803152042448_TTD5.resx">
+      <DependentUpon>201803152042448_TTD5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803152057009_TTD6.resx">
+      <DependentUpon>201803152057009_TTD6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803152108247_TTD7.resx">
+      <DependentUpon>201803152108247_TTD7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

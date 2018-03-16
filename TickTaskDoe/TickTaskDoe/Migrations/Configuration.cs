@@ -35,7 +35,7 @@ namespace TickTaskDoe.Migrations
 
         void AddDefaultUser(TickTaskDoe.Models.ApplicationDbContext context)
         {
-            var user = new ApplicationUser { UserName = "DefaultUser@msft.com" };
+            var user = new ApplicationUser { UserName = "DefaultUser",Email= "DefaultUser@msft.com",FirstName="Default",LastName="User" };
             var um = new UserManager<ApplicationUser>(
                 new UserStore<ApplicationUser>(context));
             um.Create(user, "Password");
