@@ -21,7 +21,11 @@ namespace TickTaskDoe.Controllers
             return View();
         }
 
-        //Builds a ToDo list for the current user
+
+        /// <summary>
+        /// //Builds a ToDo list for the current user
+        /// </summary>
+        /// <returns></returns>
         private IEnumerable<ToDo> MyToDoList()
         {
             string CurrUserId = User.Identity.GetUserId();
