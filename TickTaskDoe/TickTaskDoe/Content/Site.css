@@ -32,3 +32,21 @@ textarea {
     font-size: smaller;
     color: darkgray;
 }
+
+html,body{
+    font-family: "Lato", "Helvetica Neue", "Helvetica", Sans-Serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+.navbar{
+    background-color: #057ff5;
+    border-bottom: none;
+}
+
+.navbar-toggle{
+    color: #fff;
+}
+
+.body-content{
+    background-color: #fff;
+}

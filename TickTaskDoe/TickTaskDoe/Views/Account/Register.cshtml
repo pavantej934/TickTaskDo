@@ -11,7 +11,7 @@
     <h3>Create a new account</h3>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
-    <h5>Credentials</h5>
+    <h4>Credentials</h4>
     <div class="form-group">
         @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -34,7 +34,7 @@
         </div>
     </div>
     <br>
-    <h5>Personal Details</h5>
+    <h4>Personal Details</h4>
     <div class="form-group">
         @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
