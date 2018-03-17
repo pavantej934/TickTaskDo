@@ -12,7 +12,7 @@
 USE [TickTaskDoe]
 GO
 
-/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 3/14/2018 6:34:08 PM ******/
+/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 3/16/2018 8:05:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -32,6 +32,8 @@ CREATE TABLE [dbo].[AspNetUsers](
 	[LockoutEnabled] [bit] NOT NULL,
 	[AccessFailedCount] [int] NOT NULL,
 	[UserName] [nvarchar](256) NOT NULL,
+	[FirstName] [nvarchar](max) NULL,
+	[LastName] [nvarchar](max) NULL,
  CONSTRAINT [PK_dbo.AspNetUsers] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
