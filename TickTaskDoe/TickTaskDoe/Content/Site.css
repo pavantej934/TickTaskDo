@@ -27,3 +27,8 @@ textarea {
 .strikeThrough{
     text-decoration: line-through;
 }
+
+.pswdInstructions{
+    font-size: smaller;
+    color: darkgray;
+}
