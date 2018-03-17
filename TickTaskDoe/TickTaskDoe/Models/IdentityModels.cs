@@ -16,8 +16,8 @@ namespace TickTaskDoe.Models
             // Add custom user claims here
             return userIdentity;
         }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+       public string FirstName { get; set; }
+       public string LastName { get; set; }
 
     }
 
@@ -30,6 +30,8 @@ namespace TickTaskDoe.Models
         }
 
         public DbSet<ToDo> ToDos { get; set; }
+
+        public DbSet<UserList> List { get; set; }
 
         public static ApplicationDbContext Create()
         {

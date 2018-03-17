@@ -1,26 +1,84 @@
-﻿@model TickTaskDoe.Models.ToDo
+﻿
+@model TickTaskDoe.Models.ToDo
 
 @{
     ViewBag.Title = "Index";
 }
 
-<div id="tableDiv"></div>
-<div id="toDoCreateForm">
-    @using (Ajax.BeginForm("AjaxCreate","ToDoes",new AjaxOptions {
+<style>
+    .flex {
+        display: flex;
+        flex-direction: row;
+        padding: 10px;
+    }
+
+    .flex-child1{
+        flex-grow:1;
+    }
+    .flex-child2 {
+        flex-grow:8;
+    }
+   
+    #tableList
+    {
+        list-style:none;
+    }
+
+</style>
+
+<div class="flex">
+    <div class="flex-child1">
+
+        <h2>Your Lists</h2>
+
+        <div id="ListCreate">
+            @using (Ajax.BeginForm("AjaxListUpdate", "ToDoes", new AjaxOptions
+    {
         InsertionMode = InsertionMode.Replace,
         HttpMethod = "POST",
-        UpdateTargetId = "tableDiv"
+        UpdateTargetId = "tableList"
     }))
     {
-    <div class="form-group">
-        @Html.AntiForgeryToken()
-        <div>
-            @Html.EditorFor(model => model.Desc, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Desc, "", new { @class = "text-danger" })
+        <div class="form-group">
+
+            <div>
+                <input type="text" value="" id="txtInputList" />
+                <input type="button" value="Add" id="btnList" />
+            </div>
+        </div>
+        <div id="tableList"></div>
+}
+        </div>
+        
+
+
+
+    </div>
+    <div class="flex-child2">
+        <h3>@ViewBag.ListName Tasks</h3>
+        <div id="tableDiv"></div>
+        <div id="toDoCreateForm">
+            @using (Ajax.BeginForm("AjaxCreate", "ToDoes", new AjaxOptions
+            {
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "POST", 
+                UpdateTargetId = "tableDiv"
+            }))
+            {
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    <div> 
+                        @Html.EditorFor(model => model.Desc, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Desc, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
         </div>
     </div>
-    } 
 </div>
+
+
+
 
 @section Scripts{
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

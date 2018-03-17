@@ -15,5 +15,7 @@ namespace TickTaskDoe.Models
 
         public virtual ApplicationUser User { get; set; }
 
+        public int ListID { get; set; }
+
     }
 }

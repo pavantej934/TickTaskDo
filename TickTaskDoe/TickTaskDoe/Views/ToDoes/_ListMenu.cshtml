@@ -1,0 +1,17 @@
+﻿
+@model TickTaskDoe.Models.Menu
+
+<ul id="menu">
+    @foreach (var item in @Model.Items)
+    {
+        <li>
+            @Ajax.ActionLink(@item.LinkText, @item.ActionName,
+                      @item.ControllerName, new { ListName = item.LinkText, ListID = item.HTMLArguments }, new AjaxOptions
+                      {
+                          InsertionMode = InsertionMode.Replace,
+                          HttpMethod = "GET",
+                          UpdateTargetId = "tableDiv"
+                      })                                           
+        </li>
+    }
+</ul>

@@ -11,28 +11,75 @@ using TickTaskDoe.Models;
 
 namespace TickTaskDoe.Controllers
 {
+    
     public class ToDoesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ToDoes
         public ActionResult Index()
-        {
+        {          
             return View();
         }
 
+        public ActionResult showList()
+        {
+            return PartialView("_ListMenu", GetMenu());
+        }
+
+        // Ajax is used to add new Lists
+        [HttpPost]
+        public ActionResult AjaxListUpdate(string ListName)
+        {
+            if (ModelState.IsValid)
+            {
+                string CurrUserID = User.Identity.GetUserId();
+                ApplicationUser CurrUser = db.Users.FirstOrDefault
+                    (x => x.Id == CurrUserID);
+                UserList lst = new UserList();
+                lst.ListName = ListName;
+                lst.UserID = CurrUserID;              
+                db.List.Add(lst);
+                db.SaveChanges();
+            }
+
+            return PartialView("_ListMenu", GetMenu());
+        }
+
+        public Menu GetMenu()
+        {
+            Menu menu = new Menu();
+            menu.Items = new List<MenuItem>();
+            string CurrUserId = User.Identity.GetUserId();
+
+            //list name, user ID
+
+            IEnumerable<UserList> UserLists = db.List.ToList().Where(x => x.UserID == CurrUserId).Select(t => new UserList
+            {
+                ListID = t.ListID,
+                ListName = t.ListName,
+                UserID = t.UserID
+            }) ;
+
+            foreach(UserList l in UserLists)
+            {
+                menu.Items.Add(new MenuItem() { LinkText = l.ListName, ActionName = "ToDoTable", ControllerName="ToDoes", HTMLArguments= l.ListID.ToString()});
+            }
+
+            return menu;
+        }
 
         /// <summary>
         ///Builds a ToDo list for the current user.
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<ToDo> MyToDoList()
+        private IEnumerable<ToDo> MyToDoList(int ListID)
         {
             string CurrUserId = User.Identity.GetUserId();
             ApplicationUser CurrUser = db.Users.FirstOrDefault
                 (x => x.Id == CurrUserId);
 
-            IEnumerable<ToDo> currUserToDo = db.ToDos.ToList().Where(x => x.User == CurrUser);
+            IEnumerable<ToDo> currUserToDo = db.ToDos.ToList().Where(x => x.User == CurrUser && x.ListID== ListID);
 
             //Deriving the % of activities completed in the below function
             int currUserCount = 0;
@@ -48,11 +95,14 @@ namespace TickTaskDoe.Controllers
             return currUserToDo;
         }
 
-        public ActionResult ToDoTable()
+        [HttpPost]
+        public ActionResult ToDoTable(string ListName, string ListID)
         {
-
-            return PartialView("_ToDoTable",MyToDoList());
+            ViewBag.ListName = ListName;
+            return PartialView("_ToDoTable",MyToDoList(Convert.ToInt32(ListID)));
         }
+
+       
 
         // GET: ToDoes/Details/5
         public ActionResult Details(int? id)
@@ -112,7 +162,7 @@ namespace TickTaskDoe.Controllers
                 db.SaveChanges();
             }
 
-            return PartialView("_ToDoTable", MyToDoList());
+            return PartialView("_ToDoTable", MyToDoList(1));
         }
 
         // GET: ToDoes/Edit/5
@@ -173,7 +223,7 @@ namespace TickTaskDoe.Controllers
                 toDo.Done = value;
                 db.Entry(toDo).State = EntityState.Modified;
                 db.SaveChanges();
-                return PartialView("_ToDoTable", MyToDoList());
+                return PartialView("_ToDoTable", MyToDoList(1));
             }
         }
 
