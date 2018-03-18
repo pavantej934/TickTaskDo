@@ -1,0 +1,22 @@
+﻿@model IEnumerable<TickTaskDoe.Models.ToDoList>
+
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Ajax.ActionLink(item.Desc, "ToDoTaskTable",new {ListId = item.Id,ListName = item.Desc }, new AjaxOptions
+           {
+               InsertionMode = InsertionMode.Replace,
+               HttpMethod = "GET",
+               UpdateTargetId = "tableDiv"
+           })
+            </td>
+        </tr>
+    }
+</table>
+
+@section Scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -230,11 +230,17 @@
     <Compile Include="Migrations\201803152108247_TTD7.Designer.cs">
       <DependentUpon>201803152108247_TTD7.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803180821300_TTD8.cs" />
+    <Compile Include="Migrations\201803180821300_TTD8.Designer.cs">
+      <DependentUpon>201803180821300_TTD8.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ToDo.cs" />
+    <Compile Include="Models\MasterModel.cs" />
+    <Compile Include="Models\ToDoTask.cs" />
+    <Compile Include="Models\ToDoList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -243,10 +249,11 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="CustomUnits\DoneEventListener.js" />
     <Content Include="CustomUnits\ToDoTable.js" />
-    <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\favicon.ico" />
+    <Content Include="images\Logo.png" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -308,6 +315,7 @@
     <Content Include="Views\ToDoes\Edit.cshtml" />
     <Content Include="Views\ToDoes\Index.cshtml" />
     <Content Include="Views\ToDoes\_ToDoTable.cshtml" />
+    <Content Include="Views\ToDoes\_ToDoListTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -341,6 +349,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803152108247_TTD7.resx">
       <DependentUpon>201803152108247_TTD7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803180821300_TTD8.resx">
+      <DependentUpon>201803180821300_TTD8.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

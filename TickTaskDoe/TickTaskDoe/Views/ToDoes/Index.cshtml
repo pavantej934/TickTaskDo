@@ -1,5 +1,4 @@
-﻿
-@model TickTaskDoe.Models.ToDo
+﻿@model TickTaskDoe.Models.MasterModel
 
 @{
     ViewBag.Title = "Index";
@@ -29,36 +28,32 @@
 <div class="flex">
     <div class="flex-child1">
 
-        <h2>Your Lists</h2>
+        <h3>Your Lists</h3>
 
-        <div id="ListCreate">
-            @using (Ajax.BeginForm("AjaxListUpdate", "ToDoes", new AjaxOptions
-    {
-        InsertionMode = InsertionMode.Replace,
-        HttpMethod = "POST",
-        UpdateTargetId = "tableList"
-    }))
-    {
-        <div class="form-group">
-
-            <div>
-                <input type="text" value="" id="txtInputList" />
-                <input type="button" value="Add" id="btnList" />
-            </div>
-        </div>
         <div id="tableList"></div>
-}
+        <div id="ListCreate">
+            @using (Ajax.BeginForm("AjaxCreateList", "ToDoes", new AjaxOptions
+            {
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "POST",
+                UpdateTargetId = "tableList"
+            }))
+            {
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    <div>
+                        @Html.EditorFor(model => model.toDoList.Desc, new { htmlAttributes = new { @class = "form-control", @placeholder = "enter new list name" } })
+                        @Html.ValidationMessageFor(model => model.toDoList.Desc, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
         </div>
-        
-
-
-
     </div>
+
     <div class="flex-child2">
-        <h3>@ViewBag.ListName Tasks</h3>
         <div id="tableDiv"></div>
         <div id="toDoCreateForm">
-            @using (Ajax.BeginForm("AjaxCreate", "ToDoes", new AjaxOptions
+            @using (Ajax.BeginForm("AjaxCreateTask", "ToDoes", new AjaxOptions
             {
                 InsertionMode = InsertionMode.Replace,
                 HttpMethod = "POST", 
@@ -68,17 +63,14 @@
                 <div class="form-group">
                     @Html.AntiForgeryToken()
                     <div> 
-                        @Html.EditorFor(model => model.Desc, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Desc, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.toDoTask.Desc, new { htmlAttributes = new { @class = "form-control", @placeholder = "enter new task name" } })
+                        @Html.ValidationMessageFor(model => model.toDoTask.Desc, "", new { @class = "text-danger"})
                     </div>
                 </div>
             }
         </div>
     </div>
 </div>
-
-
-
 
 @section Scripts{
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

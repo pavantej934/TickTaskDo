@@ -11,7 +11,6 @@ using TickTaskDoe.Models;
 
 namespace TickTaskDoe.Controllers
 {
-    
     public class ToDoesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -22,87 +21,66 @@ namespace TickTaskDoe.Controllers
             return View();
         }
 
-        public ActionResult showList()
-        {
-            return PartialView("_ListMenu", GetMenu());
-        }
-
-        // Ajax is used to add new Lists
-        [HttpPost]
-        public ActionResult AjaxListUpdate(string ListName)
-        {
-            if (ModelState.IsValid)
-            {
-                string CurrUserID = User.Identity.GetUserId();
-                ApplicationUser CurrUser = db.Users.FirstOrDefault
-                    (x => x.Id == CurrUserID);
-                UserList lst = new UserList();
-                lst.ListName = ListName;
-                lst.UserID = CurrUserID;              
-                db.List.Add(lst);
-                db.SaveChanges();
-            }
-
-            return PartialView("_ListMenu", GetMenu());
-        }
-
-        public Menu GetMenu()
-        {
-            Menu menu = new Menu();
-            menu.Items = new List<MenuItem>();
-            string CurrUserId = User.Identity.GetUserId();
-
-            //list name, user ID
-
-            IEnumerable<UserList> UserLists = db.List.ToList().Where(x => x.UserID == CurrUserId).Select(t => new UserList
-            {
-                ListID = t.ListID,
-                ListName = t.ListName,
-                UserID = t.UserID
-            }) ;
-
-            foreach(UserList l in UserLists)
-            {
-                menu.Items.Add(new MenuItem() { LinkText = l.ListName, ActionName = "ToDoTable", ControllerName="ToDoes", HTMLArguments= l.ListID.ToString()});
-            }
-
-            return menu;
-        }
-
         /// <summary>
-        ///Builds a ToDo list for the current user.
+        ///Builds a ToDo list for the current user
         /// </summary>
-        /// <returns></returns>
-        private IEnumerable<ToDo> MyToDoList(int ListID)
+        /// <returns>List of ToDoList's for the current user</returns>
+        private IEnumerable<ToDoList> MyToDoList()
         {
             string CurrUserId = User.Identity.GetUserId();
             ApplicationUser CurrUser = db.Users.FirstOrDefault
                 (x => x.Id == CurrUserId);
 
-            IEnumerable<ToDo> currUserToDo = db.ToDos.ToList().Where(x => x.User == CurrUser && x.ListID== ListID);
+            IEnumerable<ToDoList> currUserToDoList = db.ToDoLists.ToList().Where(x => x.User == CurrUser);
+
+            return currUserToDoList;
+        }
+
+        /// <summary>
+        ///Builds a ToDo task list for the current user.
+        /// </summary>
+        /// <returns>List of ToDoTask's for the current user for the given ListId</returns>
+        private IEnumerable<ToDoTask> MyToDoTask(int ListId)
+        {
+            string CurrUserId = User.Identity.GetUserId();
+            ApplicationUser CurrUser = db.Users.FirstOrDefault
+                (x => x.Id == CurrUserId);
+
+            IEnumerable<ToDoTask> currUserToDoTask = db.ToDoTasks.ToList().Where(x => x.User == CurrUser && x.ListId == ListId);
 
             //Deriving the % of activities completed in the below function
             int currUserCount = 0;
-            foreach (ToDo todo in currUserToDo)
+            foreach (ToDoTask todo in currUserToDoTask)
             {
                 if (todo.Done)
                 {
                     currUserCount++;
                 }
             }
-            ViewBag.percentComplete = Math.Round(100f * ((float)currUserCount / (float)currUserToDo.Count()));
+            ViewBag.percentComplete = Math.Round(100f * ((float)currUserCount / (float)currUserToDoTask.Count()));
 
-            return currUserToDo;
+            return currUserToDoTask;
+        }
+         /// <summary>
+         /// Updates the current ToDo list of current user
+         /// </summary>
+         /// <returns>Partial view that updates the ToDo list of current user</returns>
+        public ActionResult ToDoListTable()
+        {
+            return PartialView("_ToDoListTable", MyToDoList());
         }
 
-        [HttpPost]
-        public ActionResult ToDoTable(string ListName, string ListID)
+        /// <summary>
+        /// Returns a partial view that updates the current task list for the given list id
+        /// </summary>
+        /// <param name="ListName">List name</param>
+        /// <param name="ListID">List ID</param>
+        /// <returns>Partial view for the given list id with list of tasks</returns>
+        public ActionResult ToDoTaskTable(int ListId,string ListName)
         {
             ViewBag.ListName = ListName;
-            return PartialView("_ToDoTable",MyToDoList(Convert.ToInt32(ListID)));
+            return PartialView("_ToDoTable",MyToDoTask(ListId));
         }
-
-       
 
         // GET: ToDoes/Details/5
         public ActionResult Details(int? id)
@@ -111,7 +89,7 @@ namespace TickTaskDoe.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ToDo toDo = db.ToDos.Find(id);
+            ToDoTask toDo = db.ToDoTasks.Find(id);
             if (toDo == null)
             {
                 return HttpNotFound();
@@ -130,7 +108,7 @@ namespace TickTaskDoe.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Desc,Done")] ToDo toDo)
+        public ActionResult Create([Bind(Include = "Id,Desc,Done")] ToDoTask toDo)
         {
             if (ModelState.IsValid)
             {
@@ -138,7 +116,7 @@ namespace TickTaskDoe.Controllers
                 ApplicationUser CurrUser = db.Users.FirstOrDefault
                     (x => x.Id == CurrUserID);
                 toDo.User = CurrUser;
-                db.ToDos.Add(toDo);
+                db.ToDoTasks.Add(toDo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -146,23 +124,49 @@ namespace TickTaskDoe.Controllers
             return View(toDo);
         }
 
-        // This action is used by Ajax box to add new items
+        /// <summary>
+        /// This action is used by Ajax box to add new lists
+        /// </summary>
+        /// <param name="toDo">toDoList model</param>
+        /// <returns>partial view that updates List with added list</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AjaxCreate([Bind(Include = "Id,Desc")] ToDo toDo)
+        public ActionResult AjaxCreateList([Bind(Include = "Id,Desc")] ToDoList toDoList)
         {
             if (ModelState.IsValid)
             {
                 string CurrUserID = User.Identity.GetUserId();
                 ApplicationUser CurrUser = db.Users.FirstOrDefault
                     (x => x.Id == CurrUserID);
-                toDo.User = CurrUser;
-                toDo.Done = false;
-                db.ToDos.Add(toDo);
+                toDoList.User = CurrUser;
+                db.ToDoLists.Add(toDoList);
                 db.SaveChanges();
             }
 
-            return PartialView("_ToDoTable", MyToDoList(1));
+            return PartialView("_ToDoListTable", MyToDoList());
+        }
+
+        /// <summary>
+        /// This action is used by Ajax box to add new tasks
+        /// </summary>
+        /// <param name="toDo">toDoTask model</param>
+        /// <returns>partial view that updates task list with added task</returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AjaxCreateTask([Bind(Include = "Id,Desc")] ToDoTask toDoTask)
+        {
+            if (ModelState.IsValid)
+            {
+                string CurrUserID = User.Identity.GetUserId();
+                ApplicationUser CurrUser = db.Users.FirstOrDefault
+                    (x => x.Id == CurrUserID);
+                toDoTask.User = CurrUser;
+                toDoTask.Done = false;
+                db.ToDoTasks.Add(toDoTask);
+                db.SaveChanges();
+            }
+
+            return PartialView("_ToDoTable", MyToDoTask(toDoTask.ListId));
         }
 
         // GET: ToDoes/Edit/5
@@ -172,7 +176,7 @@ namespace TickTaskDoe.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ToDo toDo = db.ToDos.Find(id);
+            ToDoTask toDo = db.ToDoTasks.Find(id);
             if (toDo == null)
             {
                 return HttpNotFound();
@@ -194,7 +198,7 @@ namespace TickTaskDoe.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Desc,Done")] ToDo toDo)
+        public ActionResult Edit([Bind(Include = "Id,Desc,Done")] ToDoTask toDo)
         {
             if (ModelState.IsValid)
             {
@@ -213,7 +217,7 @@ namespace TickTaskDoe.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ToDo toDo = db.ToDos.Find(id);
+            ToDoTask toDo = db.ToDoTasks.Find(id);
             if (toDo == null)
             {
                 return HttpNotFound();
@@ -223,7 +227,7 @@ namespace TickTaskDoe.Controllers
                 toDo.Done = value;
                 db.Entry(toDo).State = EntityState.Modified;
                 db.SaveChanges();
-                return PartialView("_ToDoTable", MyToDoList(1));
+                return PartialView("_ToDoTable", MyToDoTask(1));
             }
         }
 
@@ -234,7 +238,7 @@ namespace TickTaskDoe.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ToDo toDo = db.ToDos.Find(id);
+            ToDoTask toDo = db.ToDoTasks.Find(id);
             if (toDo == null)
             {
                 return HttpNotFound();
@@ -247,8 +251,8 @@ namespace TickTaskDoe.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ToDo toDo = db.ToDos.Find(id);
-            db.ToDos.Remove(toDo);
+            ToDoTask toDo = db.ToDoTasks.Find(id);
+            db.ToDoTasks.Remove(toDo);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

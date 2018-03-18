@@ -29,9 +29,9 @@ namespace TickTaskDoe.Models
         {
         }
 
-        public DbSet<ToDo> ToDos { get; set; }
+        public DbSet<ToDoTask> ToDoTasks { get; set; }
 
-        public DbSet<UserList> List { get; set; }
+        public DbSet<ToDoList> ToDoLists { get; set; }
 
         public static ApplicationDbContext Create()
         {

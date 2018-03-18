@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace TickTaskDoe.Models
 {
-    public class ToDo
+    public class ToDoTask
     {
         public int Id { get; set; }
 
@@ -15,7 +16,9 @@ namespace TickTaskDoe.Models
 
         public virtual ApplicationUser User { get; set; }
 
-        public int ListID { get; set; }
+        [ForeignKey("ToDoList")]
+        public int ListId { get; set; }
+        public virtual ToDoList ToDoList { get; set; }
 
     }
 }
