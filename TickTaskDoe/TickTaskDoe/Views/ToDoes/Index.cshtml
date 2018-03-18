@@ -50,8 +50,7 @@
 <div class="flex">
     <div class="flex-child1">
 
-        <h3>Your Lists</h3>
-
+        <h3>My Lists</h3>
         <div id="tableList"></div>
         <div id="ListCreate">
             @using (Ajax.BeginForm("AjaxCreateList", "ToDoes", new AjaxOptions
@@ -73,24 +72,24 @@
     </div>
 
     <div class="flex-child2">
-        <div id="tableDiv"></div>
-        <div id="toDoCreateForm">
-            @using (Ajax.BeginForm("AjaxCreateTask", "ToDoes", new AjaxOptions
-            {
-                InsertionMode = InsertionMode.Replace,
-                HttpMethod = "POST", 
-                UpdateTargetId = "tableDiv"
-            }))
-            {
-                <div class="form-group">
-                    @Html.AntiForgeryToken()
-                    <div> 
-                        @Html.EditorFor(model => model.toDoTask.Desc, new { htmlAttributes = new { @class = "form-control", @placeholder = "enter new task name" } })
-                        @Html.ValidationMessageFor(model => model.toDoTask.Desc, "", new { @class = "text-danger"})
+            <div id="tableDiv"></div>
+            <div id="toDoCreateForm">
+                @using (Ajax.BeginForm("AjaxCreateTask", "ToDoes", new AjaxOptions
+                {
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "POST",
+                    UpdateTargetId = "tableDiv"
+                }))
+                {
+                    <div class="form-group">
+                        @Html.AntiForgeryToken()
+                        <div>
+                            @Html.EditorFor(model => Model.toDoTask.Desc, new { htmlAttributes = new { @class = "form-control", @placeholder = "enter new task name" } })
+                            @Html.ValidationMessageFor(model => Model.toDoTask.Desc, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
     </div>
 </div>
 
