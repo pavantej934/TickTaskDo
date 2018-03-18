@@ -2,30 +2,178 @@
     ViewBag.Title = "Home Page";
 }
 
+<style>
+
+    @@media only screen and (max-width: 768px) {
+        .row {
+            flex-direction: column !important;
+            font-size: 24px !important;
+        }
+        .col-md-4 p {
+            font-size: 14px !important;
+        }
+    }
+
+    @@media screen and (max-width: 650px) {
+        .row {
+            flex-direction:column !important;
+        }
+        .col-md-4 img {
+            width: 7% !important;
+            margin: 8px 0px 0px 8px !important;
+        }
+        .col-md-4 h1 {
+            font-size: 20px !important;
+        }
+
+        .col-md-4 p {
+            font-size: 14px !important;
+        }
+
+    }
+
+    @@media screen and (max-width: 480px) {
+        .row {
+            flex-direction: column !important;
+        }
+        .col-md-4 img {
+            width: 7% !important;
+            margin: 8px 0px 0px 8px !important;
+        }
+        .col-md-4 h1 {
+            font-size: 12px !important;
+        }
+
+        .col-md-4 p {
+            font-size: 14px !important;
+        }
+
+    }
+
+
+    .jumbotron {
+        background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6) ), url(/Images/Background4.png) !important;
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+        margin-top: 18px;
+        margin-bottom: 8px !important;
+    }
+
+        .jumbotron h1, .jumbotron p {
+            color: #fff !important;
+        }
+
+    .btn-primary {
+        color: #024382 !important;
+        background-color: #fff !important;
+        border-color: #fff !important;
+    }
+
+   @@keyframes float {
+	0% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+	50% {
+		box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+		transform: translatey(-8px);
+	}
+	100% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+}
+
+.btnFloat
+{
+	box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+	transform: translatey(0px);
+	animation: float 3s ease-in-out infinite;
+}
+
+
+    .navbar {
+        background: #024382 !important;
+    }
+
+    .navbar-inverse .navbar-brand {
+        color: #fff !important;
+    }
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #fff !important;
+    }
+
+    .col-md-4 {
+        border-radius: 20px;
+        background: #eaeaea !important;
+        margin: 8px;
+    }
+
+        .col-md-4 img {
+            width: 10% !important;
+            margin: 8px 0px 0px 8px !important;
+            filter: brightness(70%) !important;
+        }
+
+
+    .row {
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+        display: flex !important;
+    }
+
+    .col-md-4 h1 {
+        font-size: 28px !important;
+    }
+
+    .flex-image{
+        display:flex;
+    }
+
+    .mascot {
+
+        width: 120px;
+        height: 101px;
+        margin-left: 20px;
+    }
+
+</style>
+
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <div class="flex-image"> <h1>Keep Your Life In Sync</h1> <img class="mascot" src="~/Images/TicTaskDo_Logo_burned.png" /> </div>
+    <p class="lead">
+        TickTaskDo is the easiest way to get stuff done. Whether you’re planning a holiday, creating a shopping list,
+        or managing multiple work projects, TickTaskDo is here to help you tick off all your personal and professional to-dos.
+        TickTaskDo's lists, and cards enable you to organize and prioritize your projects in a fun, flexible and rewarding way.
+    </p>
+    <p><a href="#" class="btn btn-primary btn-lg btnFloat">Register Here &raquo;</a></p>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <div class="flex-image"> <h1>Get life under control</h1> <img src="~/Images/shared.svg" /> </div>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            With the ultimate app for getting things done. If you're looking for a to-do app that works on all your devices, has great features for monitoring your productivity,
+            and lets you geek out with how you organize your tasks, TickTaskDo is the app for you.Join Millions of people now
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+      
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <div class="flex-image"> <h1>Plan for anything</h1> <img src="~/Images/checkmark.svg" /> </div>
+    
+        <p>
+            Organize and share your to-do, work, grocery, movies and household lists. No matter what you’re planning, how big or
+            small the task may be, TickTaskDo makes it super easy to get stuff done.
+        </p>
+      
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+        <div class="flex-image"> <h1>Get reminded anytime</h1> <img src="~/Images/reminder.svg"" /> </div>
+        <p>
+            Set Due Dates and Reminders and Assign to-dos. No matter whether your lists are work related or just for fun, you will never miss a deadline again with TickTaskDo in charge.
+        </p>
+       
     </div>
 </div>
