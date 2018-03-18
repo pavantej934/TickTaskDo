@@ -79,6 +79,7 @@ namespace TickTaskDoe.Controllers
         public ActionResult ToDoTaskTable(int ListId,string ListName)
         {
             ViewBag.ListName = ListName;
+            TempData["ListId"] = ListId;
             return PartialView("_ToDoTable",MyToDoTask(ListId));
         }
 
@@ -162,6 +163,10 @@ namespace TickTaskDoe.Controllers
                     (x => x.Id == CurrUserID);
                 toDoTask.User = CurrUser;
                 toDoTask.Done = false;
+                if (TempData.ContainsKey("ListId"))
+                {
+                    toDoTask.ListId = Convert.ToInt32(TempData["ListId"]);
+                }
                 db.ToDoTasks.Add(toDoTask);
                 db.SaveChanges();
             }
