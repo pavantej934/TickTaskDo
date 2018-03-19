@@ -5,29 +5,86 @@
 }
 
 <style>
-    .flex {
+
+    @@media only screen and (max-width: 768px) {
+        .container {
+            max-width: 800px !important;
+            margin-left: 20px;
+        }
+       
+    }
+
+    @@media screen and (max-width: 650px) {
+
+        .body-content {
+            flex-direction: column !important;
+            width: 100% !important;
+            margin-left: 0px !important;
+            margin-right: 0px !important;
+        }
+
+        .flex-child2 {
+            margin-left: 0px !important;
+            width: 100% !important;
+        }
+
+        #tableList {
+            height: 100px !important;
+            overflow: auto;
+        }
+       
+    }
+
+   
+
+    .body-content {
         display: flex;
-        flex-direction: row;
+        flex-direction: row ;
         padding: 10px;
-        height: 100%;
+        margin-right: 70px ;
+        margin-left: 70px;
+        min-height:100% !important;
     }
 
     .flex-child1 {
-        flex-grow: 1;
         background: #e6e6e6;
         margin-top: 10px;
         /* margin-bottom: -8px; */
-        padding: 10px;
+        padding: 10px 15px 10px 15px;
         border-radius: 30px;
+        flex-grow: 0.2;
+    }
+
+    #ListCreate {
+        margin-top: 20px;
+    }
+
+    #tableList {
+        height: 100%;
+        overflow: auto;
     }
 
     hr {
         margin-top: 0px !important;
     }
     .flex-child2 {
-        flex-grow:8;
+        flex-grow:1;
+        /* flex: 10px; */
+        margin-left: 60px;
+        border-radius: 30px;
+        /* background: aliceblue; */
+        background: linear-gradient( rgba(0,0,0,.5), rgba(0,0,0,.8)), url(/images/ListBackground.jpg);
+        padding: 10px 30px 0px 30px !important;
+        margin-top: 10px;
+        /* height: auto; */
+        color: white !important;
+        background-size: cover;
     }
-   
+
+    .progress-bar {
+        background-color: #96ca42 !important; 
+    }
+ 
     #tableList
     {
         list-style:none;
@@ -35,6 +92,7 @@
 
     .flex-child1 h3 {
         color: #024382;
+        margin-left: 5px;
     }
 
     .flex-child1 a {
@@ -45,13 +103,20 @@
             color: #024382 !important;
         }
 
+    .flex-child2 a {
+        color: white !important;
+    }
+
+        .flex-child2 a:hover {
+            color: white !important;
+        }
+
 </style>
 
-<div class="flex">
     <div class="flex-child1">
 
         <h3>My Lists</h3>
-        <div id="tableList"></div>
+        <div id="tableList" class="navbar-collapse"></div>
         <div id="ListCreate">
             @using (Ajax.BeginForm("AjaxCreateList", "ToDoes", new AjaxOptions
             {
@@ -72,26 +137,26 @@
     </div>
 
     <div class="flex-child2">
-            <div id="tableDiv"></div>
-            <div id="toDoCreateForm">
-                @using (Ajax.BeginForm("AjaxCreateTask", "ToDoes", new AjaxOptions
-                {
-                    InsertionMode = InsertionMode.Replace,
-                    HttpMethod = "POST",
-                    UpdateTargetId = "tableDiv"
-                }))
-                {
-                    <div class="form-group">
-                        @Html.AntiForgeryToken()
-                        <div>
-                            @Html.EditorFor(model => Model.toDoTask.Desc, new { htmlAttributes = new { @class = "form-control", @placeholder = "enter new task name" } })
-                            @Html.ValidationMessageFor(model => Model.toDoTask.Desc, "", new { @class = "text-danger" })
-                        </div>
+        <div id="tableDiv"></div>
+        <div id="toDoCreateForm">
+            @using (Ajax.BeginForm("AjaxCreateTask", "ToDoes", new AjaxOptions
+            {
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "POST",
+                UpdateTargetId = "tableDiv"
+            }))
+            {
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    <div>
+                        @Html.EditorFor(model => Model.toDoTask.Desc, new { htmlAttributes = new { @class = "form-control", @placeholder = "enter new task name" } })
+                        @Html.ValidationMessageFor(model => Model.toDoTask.Desc, "", new { @class = "text-danger" })
                     </div>
-                }
-            </div>
+                </div>
+            }
+        </div>
     </div>
-</div>
+
 
 @section Scripts{
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

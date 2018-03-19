@@ -38,15 +38,51 @@ html,body{
 	-webkit-font-smoothing: antialiased;
 }
 
-.navbar{
-    background-color: #057ff5;
+
+.navbar {
+    background: #024382 !important;
     border-bottom: none;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #fff !important;
 }
 
 .navbar-toggle{
     color: #fff;
 }
 
-.body-content{
+.body-content {
     background-color: #fff;
+    height: 100%;
+}
+
+/*body {
+    padding-top: 50px !important;
+    padding-bottom: 80px !important;
+    margin: 0 !important;
+}*/
+
+html, body {
+    top: 0px;
+    bottom: 0px;
+    height: 100%;
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1 8 140px;
+    min-height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.body-content {
+    flex-grow: 8 !important;
 }
