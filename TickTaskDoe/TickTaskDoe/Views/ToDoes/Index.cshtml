@@ -161,5 +161,10 @@
 @section Scripts{
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/CustomUnits/ToDoTable.js"></script>
+    <script>
+            function loadTaskForm() {
+                $("#toDoCreateForm").show();
+            }
+    </script>
     @Scripts.Render("~/bundles/jqueryval")
 }

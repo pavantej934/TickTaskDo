@@ -6,4 +6,6 @@
             $('#tableList').html(result);
         }
     })
+
+    $("#toDoCreateForm").hide();
 })

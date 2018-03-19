@@ -86,3 +86,59 @@ html, body {
 .body-content {
     flex-grow: 8 !important;
 }
+
+#icon{
+    width: 35px;
+	height: 35px;
+	float:left;
+    margin-top: 8px;
+	margin-right: 3px;
+    margin-left: 10px;
+    display:flex;
+}
+
+.navbar-brand{
+    float:left;
+	font-family: Comic Sans MS, Comic Sans, serif;
+}
+
+#registerForm{
+    background: #e6e6e6;
+    border-radius: 30px;
+    margin-top: 15px;
+    padding:5px 30px;
+    flex-grow: 0.2;
+}
+
+#registerForm h3,
+.loginForm h3 {
+    color: #024382;
+}
+
+#registerForm hr,
+.loginForm hr {
+    margin-top: 0px !important;
+    border-width: 2px;
+}
+
+#registerForm .form-horizontal,
+.loginForm .form-horizontal{
+    padding-left: 25px;
+}
+
+#registerForm .btn,
+.loginForm .btn{
+    background-color: #024382;
+    color: #fff;
+    padding-left: 10px;
+}
+
+.loginForm{
+    background: #e6e6e6;
+    border-radius: 30px;
+    margin-top: 50px;
+    padding: 10px 30px;
+    flex-grow: 0.2;
+}
+
+

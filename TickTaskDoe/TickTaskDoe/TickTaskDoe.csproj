@@ -252,8 +252,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\Background4.png" />
+    <Content Include="images\checkmark.svg" />
     <Content Include="images\favicon.ico" />
+    <Content Include="images\ListBackground.jpg" />
     <Content Include="images\Logo.png" />
+    <Content Include="images\reminder.svg" />
+    <Content Include="images\shared.svg" />
+    <Content Include="images\TicTaskDo_Logo.png" />
+    <Content Include="images\TicTaskDo_Logo_burned.png" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
