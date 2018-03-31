@@ -235,11 +235,20 @@
     <Compile Include="Migrations\201803180821300_TTD8.Designer.cs">
       <DependentUpon>201803180821300_TTD8.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803310332043_TTD9.cs" />
+    <Compile Include="Migrations\201803310332043_TTD9.Designer.cs">
+      <DependentUpon>201803310332043_TTD9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803310546534_TTD10.cs" />
+    <Compile Include="Migrations\201803310546534_TTD10.Designer.cs">
+      <DependentUpon>201803310546534_TTD10.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MasterModel.cs" />
+    <Compile Include="Models\NationalityGreeting.cs" />
     <Compile Include="Models\ToDoTask.cs" />
     <Compile Include="Models\ToDoList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -362,6 +371,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803180821300_TTD8.resx">
       <DependentUpon>201803180821300_TTD8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803310332043_TTD9.resx">
+      <DependentUpon>201803310332043_TTD9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803310546534_TTD10.resx">
+      <DependentUpon>201803310546534_TTD10.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
