@@ -26,9 +26,9 @@
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         @if (HttpContext.Current.User.Identity.Name != null && HttpContext.Current.User.Identity.Name != "")
-                        {
-                            <li>@Html.ActionLink("My Task List", "Index", "ToDoes")</li>
-                        }
+                    {
+                        <li>@Html.ActionLink("My Task List", "Index", "ToDoes")</li>
+                }
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Help", "Help", "Home")</li>
                     </ul>
@@ -40,7 +40,7 @@
             @RenderBody()
 
         </div>
-        
+
         <div>
             <hr />
             <!--<p align="center">&copy; @DateTime.Now.Year - TickTascDo</p>-->
@@ -49,6 +49,8 @@
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
+
+
         @RenderSection("scripts", required: false)
     </div>
 </body>

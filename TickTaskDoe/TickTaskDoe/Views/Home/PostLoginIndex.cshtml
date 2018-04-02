@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "PostLoginIndex";
+}
+<!-- Graphs -->
+<style>
+    .graphWrapper
+    {
+        display:flex;
+        width:100%;
+    }
+
+    .body-content{
+        width:100%;
+    }
+
+    .divGraphsStatus {
+        width: 50%;
+    }
+    .divGraphsTopCategory {
+        width: 50%;
+    }
+
+    @@media screen and (max-width: 650px) {
+        .graphWrapper
+        {
+            flex-direction:column;
+        }
+    }
+
+</style>
+
+<h2>Hello Sulliga!</h2>
+<div class="graphWrapper">
+    <div id="divGraphsStatus">
+
+    </div>
+
+    <div id="divGraphsTopCategory">
+
+    </div>
+</div>
+
+
+@section Scripts{
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="~/CustomUnits/PostLoginSummary.js"></script>
+}
