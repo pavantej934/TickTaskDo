@@ -50,15 +50,19 @@ namespace TickTaskDoe.Controllers
 
             //Deriving the % of activities completed in the below function
             int currUserCount = 0;
-            foreach (ToDoTask todo in currUserToDoTask)
+            if (currUserToDoTask.Count() > 0)
             {
-                if (todo.Done)
+                foreach (ToDoTask todo in currUserToDoTask)
                 {
-                    currUserCount++;
+                    if (todo.Done)
+                    {
+                        currUserCount++;
+                    }
                 }
+                ViewBag.percentComplete = Math.Round(100f * ((float)currUserCount / (float)currUserToDoTask.Count()));
             }
-            ViewBag.percentComplete = Math.Round(100f * ((float)currUserCount / (float)currUserToDoTask.Count()));
 
+            ViewBag.ListName = db.ToDoLists.First(x => x.Id == ListId).Desc;
             return currUserToDoTask;
         }
          /// <summary>
@@ -206,18 +210,18 @@ namespace TickTaskDoe.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Desc,Done")] ToDoTask toDo)
+        public ActionResult Edit([Bind(Include = "Id,Desc,Done")] ToDoTask toDoTask)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(toDo).State = EntityState.Modified;
+                db.Entry(toDoTask).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(toDo);
+            return View(toDoTask);
         }
 
-        //The edit action is used by Ajax call
+        //The edit action is used by Ajax call when the check box is modified only
         [HttpPost]
         public ActionResult AjaxEdit(int? id,bool value)
         {
@@ -232,10 +236,11 @@ namespace TickTaskDoe.Controllers
             }
             else
             {
+                int listId = db.ToDoTasks.FirstOrDefault(x => x.Id == id).ListId;
                 toDo.Done = value;
                 db.Entry(toDo).State = EntityState.Modified;
                 db.SaveChanges();
-                return PartialView("_ToDoTable", MyToDoTask(1));
+                return PartialView("_ToDoTable", MyToDoTask(listId));
             }
         }
 

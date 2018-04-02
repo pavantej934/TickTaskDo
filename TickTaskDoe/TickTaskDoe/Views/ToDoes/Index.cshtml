@@ -122,7 +122,8 @@
             {
                 InsertionMode = InsertionMode.Replace,
                 HttpMethod = "POST",
-                UpdateTargetId = "tableList"
+                UpdateTargetId = "tableList",
+                OnSuccess = "resetFormList"
             }))
             {
                 <div class="form-group">
@@ -143,7 +144,8 @@
             {
                 InsertionMode = InsertionMode.Replace,
                 HttpMethod = "POST",
-                UpdateTargetId = "tableDiv"
+                UpdateTargetId = "tableDiv",
+                OnSuccess = "resetFormTask"
             }))
             {
                 <div class="form-group">
@@ -164,6 +166,13 @@
     <script>
             function loadTaskForm() {
                 $("#toDoCreateForm").show();
+            }
+
+            function resetFormList() {
+                $('#toDoList_Desc').val('');
+            }
+            function resetFormTask() {
+                $('#toDoTask_Desc').val ('');
             }
     </script>
     @Scripts.Render("~/bundles/jqueryval")
