@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace TickTaskDoe.Models
 {
@@ -87,13 +88,19 @@ namespace TickTaskDoe.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password*")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         [Required]
         [EmailAddress]
         [Display(Name = "Email*")]
         public string Email { get; set; }
+
+        [StringLength(256)]
+        [Display(Name ="Nationality")]
+        public string Nationality { get; set; }
+
+        public IEnumerable<SelectListItem> Nations { get; set; }
     }
 
     public class ResetPasswordViewModel
@@ -111,7 +118,7 @@ namespace TickTaskDoe.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<TickTaskDoe.Models.ToDoTask>
 
 <h3>@ViewBag.ListName Tasks</h3>
-<div id="progressToDo">
-    <br/>
-    <div class="progress">
-        <div class="progress-bar" role="progressbar"
-            style="width:@(Html.AttributeEncode(ViewBag.percentComplete))%">
+@if (ViewBag.percentComplete >= 0)
+{
+    <div id="progressToDo">
+        <br/>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar"
+                style="width:@(Html.AttributeEncode(ViewBag.percentComplete))%">
+            </div>
         </div>
+            <p>@(ViewBag.percentComplete)% Complete</p>
     </div>
-    <p>@(ViewBag.percentComplete)% Complete</p>
-</div>
+}
 
 <table class="table">
     <tr>

@@ -9,12 +9,14 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TickTaskDoe.Models;
+using System.Collections.Generic;
 
 namespace TickTaskDoe.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -140,7 +142,11 @@ namespace TickTaskDoe.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            //code for populating nationality drop down
+            RegisterViewModel registerModel = new RegisterViewModel();
+            registerModel.Nations = GetNations();
+
+            return View(registerModel);
         }
 
         //
@@ -156,7 +162,8 @@ namespace TickTaskDoe.Controllers
                     UserName = model.UserName,
                     Email = model.Email,
                     FirstName = model.FirstName,
-                    LastName = model.LastName
+                    LastName = model.LastName,
+                    NationId = db.NationalityGreetings.First(n => n.Nation == model.Nationality).Id
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -176,6 +183,31 @@ namespace TickTaskDoe.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        //builds the drop down values for nationality field in registration page
+        private IEnumerable<SelectListItem> GetNations()
+        {
+            var nationsList = new List<SelectListItem>();
+            IEnumerable<NationalityGreeting> nations = db.NationalityGreetings.OrderBy(m => m.Nation);
+
+            foreach (var nation in nations)
+            {
+                nationsList.Add(new SelectListItem
+                {
+                    Value = nation.Nation,
+                    Text = nation.Nation
+                });
+            }
+            return nationsList;
+        }
+
+        //returns the display greeting message for a given user
+        public string GetGreeting(string userId)
+        {
+            //string currentUserId = User.Identity.GetUserId();
+            int? nationId = db.Users.First(m => m.Id == userId).NationId;
+            return (nationId != null) ? db.NationalityGreetings.First(m => m.Id == nationId).Greeting : "Hello";
         }
 
         //

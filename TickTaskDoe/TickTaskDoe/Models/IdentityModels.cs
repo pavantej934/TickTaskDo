@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TickTaskDoe.Models
 {
@@ -19,6 +20,10 @@ namespace TickTaskDoe.Models
        public string FirstName { get; set; }
        public string LastName { get; set; }
 
+       public int? NationId { get; set; }
+
+        [ForeignKey("NationId")]
+        public virtual NationalityGreeting NationalityGreeting { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -32,6 +37,8 @@ namespace TickTaskDoe.Models
         public DbSet<ToDoTask> ToDoTasks { get; set; }
 
         public DbSet<ToDoList> ToDoLists { get; set; }
+
+        public DbSet<NationalityGreeting> NationalityGreetings { get; set; }
 
         public static ApplicationDbContext Create()
         {

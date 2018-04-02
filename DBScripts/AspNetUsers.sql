@@ -12,7 +12,7 @@
 USE [TickTaskDoe]
 GO
 
-/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 3/16/2018 8:05:14 PM ******/
+/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 3/31/2018 7:01:25 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -34,11 +34,19 @@ CREATE TABLE [dbo].[AspNetUsers](
 	[UserName] [nvarchar](256) NOT NULL,
 	[FirstName] [nvarchar](max) NULL,
 	[LastName] [nvarchar](max) NULL,
+	[NationId] [int] NULL,
  CONSTRAINT [PK_dbo.AspNetUsers] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[AspNetUsers]  WITH CHECK ADD  CONSTRAINT [FK_dbo.AspNetUsers_dbo.NationalityGreetings_NationId] FOREIGN KEY([NationId])
+REFERENCES [dbo].[NationalityGreetings] ([Id])
+GO
+
+ALTER TABLE [dbo].[AspNetUsers] CHECK CONSTRAINT [FK_dbo.AspNetUsers_dbo.NationalityGreetings_NationId]
 GO
 
 

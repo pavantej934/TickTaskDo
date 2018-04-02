@@ -7,7 +7,13 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @if (HttpContext.Current.User.Identity.Name != null && HttpContext.Current.User.Identity.Name != "")
+            {
+                TickTaskDoe.Controllers.AccountController controllerObj = new TickTaskDoe.Controllers.AccountController();
+                string greeting = controllerObj.GetGreeting(HttpContext.Current.User.Identity.GetUserId());
+                <a href="/Manage" title="Manage">@greeting &nbsp; @User.Identity.GetUserName() !</a>
+                <!--@Html.ActionLink(greeting + "  " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" });-->
+            }
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
