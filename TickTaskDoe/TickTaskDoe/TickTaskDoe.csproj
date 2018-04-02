@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -248,6 +249,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="CustomUnits\DoneEventListener.js" />
+    <Content Include="CustomUnits\PostLoginSummary.js" />
     <Content Include="CustomUnits\ToDoTable.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -259,7 +261,6 @@
     <Content Include="images\Logo.png" />
     <Content Include="images\reminder.svg" />
     <Content Include="images\shared.svg" />
-    <Content Include="images\TicTaskDo_Logo.png" />
     <Content Include="images\TicTaskDo_Logo_burned.png" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -323,6 +324,7 @@
     <Content Include="Views\ToDoes\Index.cshtml" />
     <Content Include="Views\ToDoes\_ToDoTable.cshtml" />
     <Content Include="Views\ToDoes\_ToDoListTable.cshtml" />
+    <Content Include="Views\Home\PostLoginIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
