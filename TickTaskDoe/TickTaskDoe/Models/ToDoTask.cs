@@ -14,6 +14,8 @@ namespace TickTaskDoe.Models
 
         public bool Done { get; set; }
 
+        public DateTime? DueDate { get; set; }
+
         public virtual ApplicationUser User { get; set; }
 
         [ForeignKey("ToDoList")]

@@ -20,14 +20,26 @@
                         <span class="icon-bar"></span>
                     </button>
                     <span><input id="icon" type="image" src="~/images/Logo.png" /></span>
-                    @Html.ActionLink("TickTaskDo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @if (HttpContext.Current.User.Identity.Name != null && HttpContext.Current.User.Identity.Name != "")
+                    {
+                        @Html.ActionLink("TickTaskDo", "PostLoginIndex", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("TickTaskDo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    }
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        
                         @if (HttpContext.Current.User.Identity.Name != null && HttpContext.Current.User.Identity.Name != "")
                         {
+                            <li>@Html.ActionLink("Home", "PostLoginIndex", "Home")</li>
                             <li>@Html.ActionLink("My Task List", "Index", "ToDoes")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         }
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Help", "Help", "Home")</li>
@@ -40,7 +52,7 @@
             @RenderBody()
 
         </div>
-        
+
         <div>
             <hr />
             <!--<p align="center">&copy; @DateTime.Now.Year - TickTascDo</p>-->
@@ -49,6 +61,8 @@
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
+
+
         @RenderSection("scripts", required: false)
     </div>
 </body>

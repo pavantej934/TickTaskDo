@@ -158,7 +158,7 @@ namespace TickTaskDoe.Controllers
         /// <returns>partial view that updates task list with added task</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AjaxCreateTask([Bind(Include = "Id,Desc")] ToDoTask toDoTask)
+        public ActionResult AjaxCreateTask([Bind(Include = "Id,Desc,DueDate")] ToDoTask toDoTask)
         {
             string ListID = TempData["ListId"].ToString();
             if (ModelState.IsValid)
@@ -168,6 +168,7 @@ namespace TickTaskDoe.Controllers
                     (x => x.Id == CurrUserID);
                 toDoTask.User = CurrUser;
                 toDoTask.Done = false;
+                toDoTask.DueDate = null;
                 if (TempData.ContainsKey("ListId"))
                 {
                     toDoTask.ListId = Convert.ToInt32(TempData["ListId"]);
@@ -214,7 +215,7 @@ namespace TickTaskDoe.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(toDoTask).State = EntityState.Modified;
+                db.ToDoTasks.First(m => m.Id == toDoTask.Id).Desc = toDoTask.Desc;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -277,6 +278,16 @@ namespace TickTaskDoe.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public string[] GetUserDetails(string userId)
+        {
+            string[] userDetails = new string[2];
+            ApplicationUser currUser = db.Users.FirstOrDefault(x => x.Id == userId);
+
+            userDetails[0] = currUser.FirstName;
+            userDetails[1] = currUser.LastName;
+            return userDetails;
         }
     }
 }

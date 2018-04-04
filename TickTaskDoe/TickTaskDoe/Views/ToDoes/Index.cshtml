@@ -4,6 +4,7 @@
     ViewBag.Title = "Index";
 }
 
+<link rel="stylesheet" href="~/Content/jquery-ui.css">
 <style>
 
     @@media only screen and (max-width: 768px) {
@@ -157,12 +158,19 @@
                 </div>
             }
         </div>
+        <div id="PopupEdit" style="display:none;">
+            Window to edit the task details
+        </div>
+        <div id="PopupDelete" style="display:none;">
+            Window to delete the task
+        </div>
     </div>
 
 
 @section Scripts{
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/CustomUnits/ToDoTable.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
     <script>
             function loadTaskForm() {
                 $("#toDoCreateForm").show();
@@ -174,6 +182,34 @@
             function resetFormTask() {
                 $('#toDoTask_Desc').val ('');
             }
+
+        $(document).ready(function () {
+            $("#PopupEdit").dialog({
+                autoOpen: false,
+                title: 'Edit Task',
+                width: 'auto',
+                height: 'auto',
+                modal: true
+            });
+        });
+
+        $(document).ready(function () {
+            $("#PopupDelete").dialog({
+                autoOpen: false,
+                title: 'Delete Task',
+                width: 'auto',
+                height: 'auto',
+                modal: true
+            });
+        });
+
+        function PopupEdit() {
+            $("#PopupEdit").dialog("open");
+        }
+
+        function PopupDelete() {
+            $("#PopupDelete").dialog("open");
+        }
     </script>
     @Scripts.Render("~/bundles/jqueryval")
 }

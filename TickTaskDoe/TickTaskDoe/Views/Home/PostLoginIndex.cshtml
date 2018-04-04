@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "PostLoginIndex";
+}
+<!-- Graphs -->
+<style>
+    .graphWrapper
+    {
+        display:flex;
+        width:100%;
+    }
+
+    .body-content{
+        width:100%;
+    }
+
+    .divGraphsStatus {
+        width: 50%;
+    }
+    .divGraphsTopCategory {
+        width: 50%;
+    }
+
+    @@media screen and (max-width: 650px) {
+        .graphWrapper
+        {
+            flex-direction:column;
+        }
+    }
+
+    @@media screen and (min-width: 650px) {
+        h3 {
+            text-align:center;
+        }
+    }
+
+    h3 {
+        font-family: comic sans ms;
+        color: #024382;
+        background-color: #e6e6e6;
+        border-radius: 15px;
+        margin: 25px auto 5px;
+        padding: 15px 10px 15px 100px;
+    }
+</style>
+
+@{
+    TickTaskDoe.Controllers.ToDoesController toDoController = new TickTaskDoe.Controllers.ToDoesController();
+    string userFirstName = toDoController.GetUserDetails(HttpContext.Current.User.Identity.GetUserId())[0];
+    string message = "Good " + (DateTime.Now.Hour > 16 ? "Evening, " : DateTime.Now.Hour > 11 ? "Afternoon, " : "Morning, ") + userFirstName + " !";
+}
+
+<h3>@message</h3>
+<div class="graphWrapper">
+    <div id="divGraphsStatus">
+
+    </div>
+
+    <div id="divGraphsTopCategory">
+
+    </div>
+</div>
+
+
+@section Scripts{
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="~/CustomUnits/PostLoginSummary.js"></script>
+}
