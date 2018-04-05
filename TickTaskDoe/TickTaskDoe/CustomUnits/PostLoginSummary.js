@@ -4,17 +4,27 @@ google.load('visualization', '1.0', { 'packages': ['corechart'] });
 // Set a callback to run when the Google Visualization API is loaded.  
 $(document).ready(function () {
    
-    LoadGraph(570, 600, '/Home/GetPostLoginTopCategory', 'divGraphsTopCategory','Your Task Progress So Far');
-    LoadGraph(570, 600, '/Home/GetPostLoginStatus', 'divGraphsStatus','Your Top Lists');
+    if ($(window).width() < 570) {
+        Height = $(window).height() - 400;
+        Width = $(window).width() - 50;
+    }
+    else {
+       
+        Height = 600;
+        Width = 570;
+    }
+
+    LoadGraph(Width, Height, '/Home/GetPostLoginTopCategory', 'divGraphsTopCategory','Your Task Progress So Far');
+    LoadGraph(Width, Height, '/Home/GetPostLoginStatus', 'divGraphsStatus','Your Top Lists');
 
     $(window).resize(function () {
         if ($(window).width() > 570) {
             Height = 600;
-            Width = 500;
+            Width = 570;
         }
         else {
             Height = $(window).height() - 400;
-            Width = $(window).width() - 70;
+            Width = $(window).width() - 50;
         }
         LoadGraph(Width, Height, '/Home/GetPostLoginTopCategory', 'divGraphsTopCategory','Your Task Progress So Far');
         LoadGraph(Width, Height, '/Home/GetPostLoginStatus', 'divGraphsStatus', 'Your Top Lists');
