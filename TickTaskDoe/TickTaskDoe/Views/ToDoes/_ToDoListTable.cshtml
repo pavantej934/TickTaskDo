@@ -1,5 +1,33 @@
 ﻿@model IEnumerable<TickTaskDoe.Models.ToDoList>
 
+<style>
+    #ListEditDeleteLinks{
+        text-align: center;
+    }
+
+    #ListEdit{
+        color: #024382 !important;
+        font-size: 15px;
+        font-weight: bolder;
+        background-color: #fff;
+        padding: 5px;
+        border-radius: 5px;
+        margin-right: 5px;
+        text-decoration: none;
+    }
+
+    #ListDelete{
+        color: darkred !important;
+        font-size: 15px;
+        font-weight: bolder;
+        background-color: #fff;
+        padding: 5px;
+        border-radius: 5px;
+        margin-left: 5px;
+        text-decoration: none;
+    }
+</style>
+
 <table class="table">
     @foreach (var item in Model)
     {
@@ -12,6 +40,10 @@
                UpdateTargetId = "tableDiv",
                OnSuccess = "loadTaskForm"
            })
+            </td>
+            <td id="ListEditDeleteLinks">
+                <a class="glyphicon glyphicon-pencil" id="ListEdit" title="Edit" onclick=ListPopupEdit(@item.Id)></a>
+                <a class="glyphicon glyphicon-remove" id="ListDelete" title="Delete" onclick=ListPopupDelete(@item.Id)></a>
             </td>
         </tr>
     }

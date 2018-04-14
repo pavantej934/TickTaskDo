@@ -1,27 +1,64 @@
 ﻿@model IEnumerable<TickTaskDoe.Models.ToDoTask>
 
 <style>
-    #EditDeleteLinks{
+    #TaskEditDeleteLinks{
         text-align: center;
     }
     #TaskEdit{
-        color: darkblue !important;
-        font-size: 20px;
+        color: #024382 !important;
+        font-size: 15px;
         font-weight: bolder;
-        background-color: #e6e6e6;
+        background-color: #fff;
         padding: 5px;
         border-radius: 5px;
         margin-right: 5px;
+        text-decoration: none;
     }
 
     #TaskDelete{
         color: darkred !important;
-        font-size: 20px;
+        font-size: 15px;
         font-weight: bolder;
-        background-color: #e6e6e6;
+        background-color: #fff;
         padding: 5px;
         border-radius: 5px;
         margin-left: 5px;
+        text-decoration: none;
+    }
+
+    /*Styling for switch button*/
+    input[type=checkbox]{
+        display: none;
+    }
+
+    .DoneSwitchBtn{
+      height: 26px;
+      width: 50px;
+      background: #ff6a00;
+      position: relative;
+      border-radius: 20px;
+      box-shadow: inset 0 3px 10px rgba(0,0,0,0.3);
+    }
+
+    .DoneSwitchBtn:before{
+      height: 23px;
+      width: 23px;
+      position: absolute;
+      background: linear-gradient(#e0e0e0,#e6e6e6);
+      left: 2px;
+      top: 1.5px;
+      content: '';
+      transition: all 200ms;
+      border-radius: 50%;
+      box-shadow: 0 8px 6px -4px rgba(0,0,0,0.25);
+    }
+
+    input[type=checkbox]:checked + input[type="hidden"] + .DoneSwitchBtn:before{
+      left: 25px;
+    }
+
+    input[type=checkbox]:checked + input[type="hidden"] + .DoneSwitchBtn {
+      background: #028f5e;
     }
 </style>
 
@@ -66,11 +103,17 @@
                 }
             </td>
             <td>
-                @Html.CheckBoxFor(modelItem => item.Done,new { id = item.Id, @class="ActiveCheck"})
+                @String.Format("{0:MM/dd/yyyy}", item.DueDate)
             </td>
-            <td id="EditDeleteLinks">
-                <a class="glyphicon glyphicon-pencil" id="TaskEdit" title="Edit" onclick=PopupEdit()></a>
-                <a class="glyphicon glyphicon-remove" id="TaskDelete" title="Delete" onclick=PopupDelete()></a>
+            <td>
+                <label class="DoneSwitch">
+                    @Html.CheckBoxFor(modelItem => item.Done, new { id = item.Id, @class = "ActiveCheck" })
+                    <div class="DoneSwitchBtn"></div>
+                </label>
+            </td>
+            <td id="TaskEditDeleteLinks">
+                <a class="glyphicon glyphicon-pencil" id="TaskEdit" title="Edit" onclick=TaskPopupEdit(@item.Id)></a>
+                <a class="glyphicon glyphicon-remove" id="TaskDelete" title="Delete" onclick=TaskPopupDelete(@item.Id)></a>
             </td>
         </tr>
     }

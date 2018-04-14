@@ -1,0 +1,114 @@
+﻿@model TickTaskDoe.Models.ToDoTask
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<style>
+    /*Styling for switch button*/
+    input[type=checkbox]{
+        display: none;
+    }
+
+    .EmailSwitchBtn{
+      height: 50px;
+      width: 100px;
+      background: #fff;
+      position: relative;
+      box-shadow: inset 0 3px 10px rgba(0,0,0,0.3);
+      border-radius: 25px;
+    }
+
+    .EmailSwitchBtn:before{
+      height: 46px;
+      width: 46px;
+      position: absolute;
+      background: linear-gradient(#e0e0e0,#e6e6e6);
+      left: 2px;
+      top: 2px;
+      content: '';
+      transition: all 200ms;
+      box-shadow: 0 8px 6px -4px rgba(0,0,0,0.25);
+      border-radius: 25px;
+    }
+
+    input[type=checkbox]:checked + input[type="hidden"] + .EmailSwitchBtn:before{
+      left: 52px;
+    }
+
+    input[type=checkbox]:checked + input[type="hidden"] + .EmailSwitchBtn {
+      background: #ffeb0c;
+    }
+
+    .EmailSwitchBtn:after{
+      content:"NOPE";
+      position: absolute;
+      top: 30%;
+      right: 8%;
+      color: #024382;
+      font-family: Comic Sans MS, Comic Sans, serif;
+    }
+
+    input[type=checkbox]:checked + input[type="hidden"] + .EmailSwitchBtn:after{
+      content: "YUP";
+      position: absolute;
+      top: 30%;
+      left: 15%;
+    }
+</style>
+
+
+@using (Html.BeginForm("Edit","ToDoes",FormMethod.Post,new { @class="editForm"}))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal editForm">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group EditDesc">
+            @Html.LabelFor(model => model.Desc, "Description", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8 col-xs-offset-3">
+                @Html.EditorFor(model => model.Desc, new { htmlAttributes = new { @class = "form-control",@placeholder = "Task Description" } })
+                @Html.ValidationMessageFor(model => model.Desc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group EditDueDate">
+            @Html.LabelFor(model => model.DueDate, "Due Date",htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-4 col-xs-offset-3">
+                    @{
+                        var format = String.Format("{0:MM/dd/yyyy}", @Model.DueDate);
+                    }
+                    @Html.TextBoxFor(model => model.DueDate, format,  new { @id = "datetimepicker"})
+                    <script type="text/javascript">
+                        $(function () {
+                            $("#datetimepicker").datepicker();
+                        });
+                    </script>
+                    @Html.ValidationMessageFor(model => model.DueDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group EditEmailNotif">
+            @Html.LabelFor(model => model.EmailNotification, "Email Reminder?", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8 col-xs-offset-3">
+                <label class="EmailSwitch">
+                    @Html.CheckBoxFor(model => model.EmailNotification, new {@class = "ActiveCheckBox" } )
+                    <div class="EmailSwitchBtn"></div>
+                </label>
+                    @Html.ValidationMessageFor(model => model.EmailNotification, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-4 col-md-4 col-xs-offset-4 col-md-offset-4">
+                <input type="submit" value="Save" class="btn btn-default"/>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

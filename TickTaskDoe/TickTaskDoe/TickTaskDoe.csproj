@@ -247,6 +247,10 @@
     <Compile Include="Migrations\201804020246156_TTD11.Designer.cs">
       <DependentUpon>201804020246156_TTD11.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804100452427_TTD12.cs" />
+    <Compile Include="Migrations\201804100452427_TTD12.Designer.cs">
+      <DependentUpon>201804100452427_TTD12.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -342,12 +346,13 @@
     <Content Include="Views\ToDoes\Create.cshtml" />
     <Content Include="Views\ToDoes\Delete.cshtml" />
     <Content Include="Views\ToDoes\Details.cshtml" />
-    <Content Include="Views\ToDoes\Edit.cshtml" />
+    <Content Include="Views\ToDoes\_Edit.cshtml" />
     <Content Include="Views\ToDoes\Index.cshtml" />
     <Content Include="Views\ToDoes\_ToDoTable.cshtml" />
     <Content Include="Views\ToDoes\_ToDoListTable.cshtml" />
     <Content Include="Views\Home\PostLoginIndex.cshtml" />
     <Content Include="Views\Home\Help.cshtml" />
+    <Content Include="Views\ToDoes\_EditList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -393,6 +398,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804020246156_TTD11.resx">
       <DependentUpon>201804020246156_TTD11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804100452427_TTD12.resx">
+      <DependentUpon>201804100452427_TTD12.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

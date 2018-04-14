@@ -18,6 +18,15 @@ namespace TickTaskDoe.Controllers
         // GET: ToDoes
         public ActionResult Index()
         {          
+            if (TempData.ContainsKey("BoolEdit"))
+            {
+                ViewBag.BoolEdit = 'Y';
+                ViewBag.ListId = TempData["ListId"];
+                ViewBag.ListName = TempData["ListName"];
+                TempData.Remove("BoolEdit");
+                TempData.Remove("ListId");
+                TempData.Remove("ListName");
+            }
             return View();
         }
 
@@ -168,7 +177,8 @@ namespace TickTaskDoe.Controllers
                     (x => x.Id == CurrUserID);
                 toDoTask.User = CurrUser;
                 toDoTask.Done = false;
-                toDoTask.DueDate = null;
+                toDoTask.DueDate = DateTime.Today.Date;
+                toDoTask.EmailNotification = false;
                 if (TempData.ContainsKey("ListId"))
                 {
                     toDoTask.ListId = Convert.ToInt32(TempData["ListId"]);
@@ -182,7 +192,58 @@ namespace TickTaskDoe.Controllers
             return PartialView("_ToDoTable", MyToDoTask(toDoTask.ListId));
         }
 
+        /// <summary>
+        /// Called to load the partial view for List edit
+        /// </summary>
+        /// <param name="id">List Id</param>
+        /// <returns>Partial view that enables user to edit list details</returns>
+        public ActionResult EditList(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ToDoList toDoList = db.ToDoLists.Find(id);
+            if (toDoList == null)
+            {
+                return HttpNotFound();
+            }
+            //validation for not allowing others users to edit lists
+            string CurrUserID = User.Identity.GetUserId();
+            ApplicationUser CurrUser = db.Users.FirstOrDefault
+                (x => x.Id == CurrUserID);
+
+            if (toDoList.User != CurrUser)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return PartialView("_EditList", toDoList);
+        }
+
+        /// <summary>
+        /// Called on save of list edit popup
+        /// </summary>
+        /// <param name="toDoList">List id and new description</param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditList([Bind(Include = "Id,Desc")] ToDoList toDoList)
+        {
+            if (ModelState.IsValid)
+            {
+                db.ToDoLists.First(m => m.Id == toDoList.Id).Desc = toDoList.Desc;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
+
         // GET: ToDoes/Edit/5
+        /// <summary>
+        /// Called to load the partial view for Task Edit
+        /// </summary>
+        /// <param name="id">Task Id</param>
+        /// <returns>Partial view to edit the task details</returns>
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -203,23 +264,32 @@ namespace TickTaskDoe.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(toDo);
+            return PartialView("_Edit", toDo);
         }
 
-        // POST: ToDoes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Called when save is clicked in popup edit for task
+        /// </summary>
+        /// <param name="toDoTask">Modified task details</param>
+        /// <returns>Index view with curr used lists</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Desc,Done")] ToDoTask toDoTask)
+        public ActionResult Edit([Bind(Include = "Id,Desc,DueDate,EmailNotification")] ToDoTask toDoTask)
         {
             if (ModelState.IsValid)
             {
                 db.ToDoTasks.First(m => m.Id == toDoTask.Id).Desc = toDoTask.Desc;
+                db.ToDoTasks.First(m => m.Id == toDoTask.Id).DueDate = toDoTask.DueDate;
+                db.ToDoTasks.First(m => m.Id == toDoTask.Id).EmailNotification = toDoTask.EmailNotification;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                int ListId = db.ToDoTasks.First(m => m.Id == toDoTask.Id).ListId;
+                string ListName = db.ToDoLists.First(m => m.Id == ListId).Desc;
+                TempData["BoolEdit"] = 'Y';
+                TempData["ListId"] = ListId;
+                TempData["ListName"] = ListName;
+                return RedirectToAction ("Index");
             }
-            return View(toDoTask);
+            return RedirectToAction ("Index");
         }
 
         //The edit action is used by Ajax call when the check box is modified only
@@ -260,15 +330,43 @@ namespace TickTaskDoe.Controllers
             return View(toDo);
         }
 
-        // POST: ToDoes/Delete/5
+        /// <summary>
+        /// Called when user confirms deletion of a list in popup list delete window
+        /// </summary>
+        /// <param name="id">List id to be deleted</param>
+        /// <returns>Index</returns>
+        [HttpPost, ActionName("DeleteList")]
+        public ActionResult DeleteList(int id)
+        {
+            //deleting all the corresponding tasks for the list first
+            List<ToDoTask> toDoTasks = db.ToDoTasks.Where(m => m.ListId == id).ToList();
+            db.ToDoTasks.RemoveRange(toDoTasks);
+
+            //deleting the list
+            ToDoList toDoList = db.ToDoLists.First(m => m.Id == id);
+            db.ToDoLists.Remove(toDoList);
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Called when user clicks 'Go ahead' delete confirmation in delete popup of task
+        /// </summary>
+        /// <param name="id">Task id to be deleted</param>
+        /// <returns>Displays the refreshed task list of the particular list for the user</returns>
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            int ListId = db.ToDoTasks.First(m => m.Id == id).ListId;
+            string ListName = db.ToDoLists.First(m => m.Id == ListId).Desc;
+
             ToDoTask toDo = db.ToDoTasks.Find(id);
             db.ToDoTasks.Remove(toDo);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("ToDoTaskTable", new {ListId = ListId,ListName = ListName});
         }
 
         protected override void Dispose(bool disposing)

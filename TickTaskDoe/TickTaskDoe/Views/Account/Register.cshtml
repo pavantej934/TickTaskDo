@@ -13,13 +13,13 @@
         <h4>Credentials</h4>
         <div class="form-group">
             <!--@Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })-->
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-1">
                 @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "User Name" })
             </div>
         </div>
         <div class="form-group">
             <!--@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })-->
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-1">
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
                 <p class="pswdInstructions"><b>Minimum 6 characters<br />
                 Atleast 1 character from (A-Z) (a-z) (1-9) (!@@#$%^&*)</b></p>
@@ -28,7 +28,7 @@
         </div>
         <div class="form-group">
             <!--@Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })-->
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-1">
                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm Password" })
             </div>
         </div>
@@ -36,30 +36,30 @@
         <h4>Personal Details</h4>
         <div class="form-group">
             <!--@Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })-->
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-1">
                 @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "First Name" })
             </div>
         </div>
         <div class="form-group">
             <!--@Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })-->
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-1">
                 @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Last Name" })
             </div>
         </div>
         <div class="form-group">
             <!--@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })-->
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-1">
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
             </div>
         </div>
         <div class="form-group">
             <!--@Html.LabelFor(m => m.Nationality, new { @class = "col-md-2 control-label" })-->
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-1">
                 @Html.DropDownListFor(m => m.Nationality, Model.Nations, "- Nationality -", new { @class="form-control"})
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-4 col-md-4 col-xs-offset-4 col-xs-4">
                 <input type="submit" class="btn btn-default" value="Register" />
             </div>
         </div>

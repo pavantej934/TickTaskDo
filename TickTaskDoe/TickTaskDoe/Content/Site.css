@@ -113,32 +113,39 @@ html, body {
 }
 
 #registerForm h3,
-.loginForm h3 {
+#loginForm h3 {
     color: #024382;
 }
 
 #registerForm hr,
-.loginForm hr {
+#loginForm hr {
     margin-top: 0px !important;
     border-width: 2px;
 }
 
-#registerForm .form-horizontal,
-.loginForm .form-horizontal{
-    padding-left: 25px;
-}
-
 #registerForm .btn,
-.loginForm .btn{
+#loginForm .btn{
     background-color: #024382;
     color: #fff;
-    padding-left: 10px;
 }
 
-.loginForm{
+#loginForm{
     background: #e6e6e6;
     border-radius: 30px;
     margin-top: 50px;
     padding: 10px 30px;
     flex-grow: 0.2;
+}
+
+#loginForm p{
+    margin-left: 8.333333333333332%;
+}
+
+@media (max-width: 768px){
+    .col-xs-offset-4 {
+    margin-left: 33.33333333333333%;
+    }
+    .col-xs-offset-3 {
+    margin-left: 25%;
+    }
 }
