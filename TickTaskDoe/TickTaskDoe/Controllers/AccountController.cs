@@ -143,8 +143,10 @@ namespace TickTaskDoe.Controllers
         public ActionResult Register()
         {
             //code for populating nationality drop down
-            RegisterViewModel registerModel = new RegisterViewModel();
-            registerModel.Nations = GetNations();
+            RegisterViewModel registerModel = new RegisterViewModel
+            {
+                Nations = GetNations()
+            };
 
             return View(registerModel);
         }
@@ -165,6 +167,7 @@ namespace TickTaskDoe.Controllers
                     LastName = model.LastName,
                     NationId = db.NationalityGreetings.First(n => n.Nation == model.Nationality).Id
                 };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -181,7 +184,7 @@ namespace TickTaskDoe.Controllers
                 }
                 AddErrors(result);
             }
-
+            model.Nations = GetNations();
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -189,7 +192,7 @@ namespace TickTaskDoe.Controllers
         //builds the drop down values for nationality field in registration page
         private IEnumerable<SelectListItem> GetNations()
         {
-            var nationsList = new List<SelectListItem>();
+            List<SelectListItem> nationsList = new List<SelectListItem>();
             IEnumerable<NationalityGreeting> nations = db.NationalityGreetings.OrderBy(m => m.Nation);
 
             foreach (var nation in nations)

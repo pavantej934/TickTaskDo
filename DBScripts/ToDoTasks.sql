@@ -12,7 +12,7 @@
 USE [TickTaskDoe]
 GO
 
-/****** Object:  Table [dbo].[ToDoTasks]    Script Date: 3/18/2018 12:27:10 PM ******/
+/****** Object:  Table [dbo].[ToDoTasks]    Script Date: 4/14/2018 5:23:42 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -25,6 +25,8 @@ CREATE TABLE [dbo].[ToDoTasks](
 	[Done] [bit] NOT NULL,
 	[User_Id] [nvarchar](128) NULL,
 	[ListId] [int] NOT NULL,
+	[DueDate] [datetime] NULL,
+	[EmailNotification] [bit] NOT NULL,
  CONSTRAINT [PK_dbo.ToDoTasks] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -33,6 +35,9 @@ CREATE TABLE [dbo].[ToDoTasks](
 GO
 
 ALTER TABLE [dbo].[ToDoTasks] ADD  DEFAULT ((0)) FOR [ListId]
+GO
+
+ALTER TABLE [dbo].[ToDoTasks] ADD  DEFAULT ((0)) FOR [EmailNotification]
 GO
 
 ALTER TABLE [dbo].[ToDoTasks]  WITH CHECK ADD  CONSTRAINT [FK_dbo.ToDoes_dbo.AspNetUsers_User_Id] FOREIGN KEY([User_Id])
