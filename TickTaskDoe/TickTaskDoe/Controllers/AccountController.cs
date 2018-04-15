@@ -160,14 +160,20 @@ namespace TickTaskDoe.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {
-                    UserName = model.UserName,
-                    Email = model.Email,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    NationId = db.NationalityGreetings.First(n => n.Nation == model.Nationality).Id
-                };
-
+                var user = new ApplicationUser();
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                try
+                {
+                    user.NationId = db.NationalityGreetings.FirstOrDefault(n => n.Nation == model.Nationality).Id;
+                }
+                catch (System.NullReferenceException)
+                {
+                    user.NationId = null;
+                }
+                
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
