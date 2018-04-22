@@ -90,16 +90,7 @@
             </div>
         </div>
 
-        <div class="form-group EditEmailNotif">
-            @Html.LabelFor(model => model.EmailNotification, "Email Reminder?", htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8 col-xs-offset-3">
-                <label class="EmailSwitch">
-                    @Html.CheckBoxFor(model => model.EmailNotification, new {@class = "ActiveCheckBox" } )
-                    <div class="EmailSwitchBtn"></div>
-                </label>
-                    @Html.ValidationMessageFor(model => model.EmailNotification, "", new { @class = "text-danger" })
-            </div>
-        </div>
+
 
         <div class="form-group">
             <div class="col-xs-4 col-md-4 col-xs-offset-4 col-md-offset-4">

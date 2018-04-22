@@ -38,9 +38,9 @@ namespace TickTaskDoe.Controllers
 
 
         /// <summary>  
-        /// GET: /Home/GetPostLoginSummary  
+        /// Method for showing a donut chart displaying in-progress and completed tasks.
         /// </summary>  
-        /// <returns>Return data</returns>  
+        /// <returns>Json containg Inprogress and Completed tasks count</returns>  
         public ActionResult GetPostLoginStatus()
         {
             // Initialization.  
@@ -62,9 +62,9 @@ namespace TickTaskDoe.Controllers
 
 
         /// <summary>  
-        /// GET: /Home/GetPostLoginSummary  
+        /// Method for showing a donut chart displaying top 5 list categories.
         /// </summary>  
-        /// <returns>Return data</returns>  
+        /// <returns>Json data containing the statistics</returns>  
         public ActionResult GetPostLoginTopCategory()
         {
             // Initialization.  

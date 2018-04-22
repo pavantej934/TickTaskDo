@@ -4,6 +4,14 @@
 
 <style>
 
+    @@media screen and (min-width: 992px) {
+        .col-md-4 {
+            width: 100% !important;
+        }
+
+    }
+
+
     @@media only screen and (max-width: 768px) {
         .row {
             flex-direction: column !important;
@@ -16,7 +24,7 @@
         .jumbotron h1 {
             font-size: 35px !important;
         }
-      
+
     }
 
     @@media screen and (max-width: 650px) {
@@ -39,7 +47,19 @@
         .jumbotron h1 {
             font-size: 25px !important;
         }
-        
+
+        .col-md-4.control {
+            background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url(/images/Image_Running2_mob.jpg);
+        }
+
+        .col-md-4.plan {
+            background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url('/images/Planning is fun_mob.jpg');
+        }
+
+        .col-md-4.reminded {
+            background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url(/images/Clock_mob.jpg);
+        }
+
 
     }
 
@@ -52,20 +72,88 @@
             margin: 8px 0px 0px 8px !important;
         }
         .col-md-4 h1 {
+            font-size: 18px !important;
+        }
+
+        .col-md-4 p {
+            font-size: 12px !important;
+        }
+        .jumbotron h1 {
+            font-size: 25px !important;
+        }
+
+        .col-md-4 {
+            padding: 20px !important;
+        }
+
+        .col-md-4.control {
+            background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url(/images/Image_Running2_mob.jpg) !important;
+           
+        }
+
+        .col-md-4.plan {
+            background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url('/images/Planning is fun_mob.jpg')  !important;
+           
+        }
+
+        .col-md-4.reminded {
+            background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url(/images/Clock_mob.jpg) !important;
+           
+        }
+
+        .jumbotron {
+            background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8) ), url(/Images/main_image_mob.jpg) !important;
+           
+        }
+    }
+
+
+    @@media screen and (max-width: 300px) {
+        .row {
+            flex-direction: column !important;
+        }
+
+        .col-md-4 img {
+            width: 7% !important;
+            margin: 8px 0px 0px 8px !important;
+        }
+
+        .col-md-4 h1 {
             font-size: 12px !important;
         }
 
         .col-md-4 p {
             font-size: 14px !important;
         }
+
         .jumbotron h1 {
             font-size: 25px !important;
+        }
+
+        .col-md-4 {
+            padding: 5px 20px;
+        }
+
+            .col-md-4.control {
+                background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url(/images/Image_Running2_mob.jpg);
+            }
+
+            .col-md-4.plan {
+                background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url('/images/Planning is fun_mob.jpg');
+            }
+
+            .col-md-4.reminded {
+                background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url(/images/Clock_mob.jpg);
+            }
+
+        .jumbotron {
+            background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8) ), url(/Images/main_image_mob.jpg) !important;
         }
     }
 
     .jumbotron {
-        background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6) ), url(/Images/Background4.png) !important;
-        background-size: cover !important;
+        background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8) ), url(/Images/main_image.jpg) ;
+        background-size: cover ;
         background-repeat: no-repeat !important;
         margin-top: 18px;
         margin-bottom: 8px !important;
@@ -104,17 +192,23 @@
 }
 
 
-   
+
     .col-md-4 {
         border-radius: 20px;
-        background: #eaeaea !important;
-        margin: 8px;
+        margin: 8px 0px;
+        height:350px;
+        padding:20px 60px;
     }
+
 
         .col-md-4 img {
             width: 10% !important;
             margin: 8px 0px 0px 8px !important;
             filter: brightness(70%) !important;
+        }
+        .col-md-4 p{
+            width:55% !important;
+            color:black !important;
         }
 
 
@@ -122,14 +216,38 @@
         margin-right: 0px !important;
         margin-left: 0px !important;
         display: flex !important;
+        flex-direction:column;
     }
 
+    .col-md-4.control {
+        background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url(/images/Image_Running2.jpg) ;
+        font-size:1.5em;
+        background-size:cover ;
+    }
+
+    .col-md-4.plan {
+        background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url('/images/Planning is fun.jpg') ;
+        font-size: 1.5em;
+        background-size: cover ;
+    }
+
+    .col-md-4.reminded {
+        background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url(/images/Clock.jpg.jpg) ;
+        font-size: 1.5em;
+        background-size: cover ;
+    }
+
+
     .col-md-4 h1 {
-        font-size: 28px !important;
+        font-size: 28px;
     }
 
     .flex-image{
         display:flex;
+    }
+
+    .flex-image p{
+       margin:0px;
     }
 
     .mascot {
@@ -141,40 +259,45 @@
 
 </style>
 
+@*Landing Page/Home Page- This page is mobile responsive*@ 
+
 <div class="jumbotron">
-    <div class="flex-image"> <h1>Keep Your Life In Sync</h1> <img class="mascot" src="~/Images/TicTaskDo_Logo_burned.png" /> </div>
+    <h1>Keep Your Life In Sync</h1> 
     <p class="lead">
         TickTaskDo is the easiest way to get stuff done. Whether you’re planning a holiday, creating a shopping list,
         or managing multiple work projects, TickTaskDo is here to help you tick off all your personal and professional to-dos.
         TickTaskDo's lists, and cards enable you to organize and prioritize your projects in a fun, flexible and rewarding way.
     </p>
-    <p><a href="/Account/Register" class="btn btn-primary btn-lg btnFloat">Register Here &raquo;</a></p>
-</div>
+    <div class="flex-image">
+        <p><a href="/Account/Register" class="btn btn-primary btn-lg btnFloat">Register Here &raquo;</a></p>  <img class="mascot" src="~/Images/TicTaskDo_Logo_burned.png" />
+    </div>
+    </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <div class="flex-image"> <h1>Get life under control</h1> <img src="~/Images/shared.svg" /> </div>
-        <p>
-            With the ultimate app for getting things done. If you're looking for a to-do app that works on all your devices, has great features for monitoring your productivity,
-            and lets you geek out with how you organize your tasks, TickTaskDo is the app for you.Join Millions of people now
-        </p>
-      
-    </div>
-    <div class="col-md-4">
+
+    <div class="col-md-4 plan">
         <div class="flex-image"> <h1>Plan for anything</h1> <img src="~/Images/checkmark.svg" /> </div>
-    
+
         <p>
             Organize and share your to-do, work, grocery, movies and household lists. No matter what you’re planning, how big or
             small the task may be, TickTaskDo makes it super easy to get stuff done.
         </p>
-      
-    </div>
-    <div class="col-md-4">
 
-        <div class="flex-image"> <h1>Get reminded anytime</h1> <img src="~/Images/reminder.svg"" /> </div>
+    </div>
+    <div class="col-md-4 reminded">
+
+        <div class="flex-image"> <h1>Get reminded anytime</h1> <img src="~/Images/reminder.svg" /> </div>
         <p>
             Set Due Dates and Reminders and Assign to-dos. No matter whether your lists are work related or just for fun, you will never miss a deadline again with TickTaskDo in charge.
         </p>
-       
+
+    </div>
+
+    <div class="col-md-4 control">
+        <div class="flex-image"> <h1>Get life under control</h1> <img src="~/Images/shared.svg" /> </div>
+        <p>
+            If you're looking for a to-do app that works on all your devices, has great features for monitoring your productivity, and lets you organize your tasks, TickTaskDo is the app for you.
+        </p>
+
     </div>
 </div>

@@ -3,19 +3,19 @@ google.load('visualization', '1.0', { 'packages': ['corechart'] });
 
 // Set a callback to run when the Google Visualization API is loaded.  
 $(document).ready(function () {
-   
+
     if ($(window).width() < 570) {
         Height = $(window).height() - 400;
         Width = $(window).width() - 50;
     }
     else {
-       
+
         Height = 600;
         Width = 570;
     }
 
-    LoadGraph(Width, Height, '/Home/GetPostLoginTopCategory', 'divGraphsTopCategory','Your Task Progress So Far');
-    LoadGraph(Width, Height, '/Home/GetPostLoginStatus', 'divGraphsStatus','Your Top Lists');
+    LoadGraph(Width, Height, '/Home/GetPostLoginTopCategory', 'divGraphsTopCategory', 'Your Task Progress So Far');
+    LoadGraph(Width, Height, '/Home/GetPostLoginStatus', 'divGraphsStatus', 'Your Top Lists');
 
     $(window).resize(function () {
         if ($(window).width() > 570) {
@@ -26,14 +26,14 @@ $(document).ready(function () {
             Height = $(window).height() - 400;
             Width = $(window).width() - 50;
         }
-        LoadGraph(Width, Height, '/Home/GetPostLoginTopCategory', 'divGraphsTopCategory','Your Task Progress So Far');
+        LoadGraph(Width, Height, '/Home/GetPostLoginTopCategory', 'divGraphsTopCategory', 'Your Task Progress So Far');
         LoadGraph(Width, Height, '/Home/GetPostLoginStatus', 'divGraphsStatus', 'Your Top Lists');
     });
 
 });
 
 
-
+//Ajax call to load donut charts in postloginindex page.
 function LoadGraph(Width, Height, Url, elementId, title) {
     $.ajax(
         {
@@ -54,8 +54,18 @@ function LoadGraph(Width, Height, Url, elementId, title) {
                         //  pieSliceTextStyle: { color: white;},
                     };
 
-                // Draw.  
-                drawGraph(response, options, elementId);
+                // check if there is data in database. If not, show no data message
+                if (response.length < 1) {
+                    $("#divNoData").show();
+                    $("#divGraphsStatus").hide();
+                    $("#divGraphsTopCategory").hide();
+
+                }
+                else {
+                    // Draw.  
+                    $("#divNoData").hide();
+                    drawGraph(response, options, elementId);
+                }
             }
         });
 }
@@ -75,8 +85,8 @@ function drawGraph(dataValues, options, elementId) {
 
     for (var i = 0; i < dataValues.length; i++) {
         dt.addRow([dataValues[i].label, dataValues[i].count]);
-    }  
-  
+    }
+
     chartData = dt;
 
     // Instantiate and draw our chart, passing in some options.  

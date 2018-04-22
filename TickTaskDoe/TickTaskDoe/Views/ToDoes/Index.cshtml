@@ -4,10 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-<script src="~/Scripts/jquery-1.10.2.js"></script>
-<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-
-<link rel="stylesheet" href="~/Content/jquery-ui.css">
 <style>
 
     @@media only screen and (max-width: 768px) {
@@ -15,7 +11,6 @@
             max-width: 800px !important;
             margin-left: 20px;
         }
-       
     }
 
     @@media screen and (max-width: 650px) {
@@ -36,19 +31,24 @@
             height: 100px !important;
             overflow: auto;
         }
-       
+
+        .flex-child2 {
+            
+            padding: 10px 10px 0px 10px !important;
+           
+        }
     }
 
-   
+
 
     .body-content {
         display: flex;
-        flex-direction: row ;
+        flex-direction: row;
         padding: 10px;
-        margin-right: 70px ;
+        margin-right: 70px;
         margin-left: 70px;
-        min-height:100% !important;
-        min-width:70%;
+        min-height: 100% !important;
+        min-width: 70%;
     }
 
     .flex-child1 {
@@ -58,8 +58,8 @@
         padding: 10px 15px 10px 15px;
         border-radius: 30px;
         flex-grow: 0.2;
-        display:flex;
-        flex-direction:column;
+        display: flex;
+        flex-direction: column;
     }
 
     #ListCreate {
@@ -74,14 +74,15 @@
     hr {
         margin-top: 0px !important;
     }
+
     .flex-child2 {
-        flex-grow:1;
+        flex-grow: 1;
         /* flex: 10px; */
         margin-left: 60px;
         border-radius: 30px;
         /* background: aliceblue; */
         background: linear-gradient( rgba(0,0,0,.5), rgba(0,0,0,.8)), url(/images/ListBackground.jpg);
-        padding: 10px 30px 0px 30px !important;
+        padding: 10px 30px 0px 30px;
         margin-top: 10px;
         /* height: auto; */
         color: white !important;
@@ -89,13 +90,12 @@
     }
 
     .progress-bar {
-        background-color: #96ca42 !important; 
+        background-color: #96ca42 !important;
     }
- 
-    #tableList
-    {
-        list-style:none;
-        flex-grow:8;
+
+    #tableList {
+        list-style: none;
+        flex-grow: 8;
     }
 
     .flex-child1 h3 {
@@ -107,7 +107,7 @@
         color: #000000 !important;
     }
 
-    .flex-child1 a:hover {
+        .flex-child1 a:hover {
             color: #024382 !important;
         }
 
@@ -124,109 +124,111 @@
         font-family: "Lato", "Helvetica Neue", "Helvetica", Sans-Serif;
     }
 
-    .editForm .btn {
-        background-color: #024382;
-        color: #fff;
-    }
+        .editForm .btn {
+            background-color: #024382;
+            color: #fff;
+        }
 
-    .ui-dialog-titlebar{
-        background-color: #024382;
-        color: #fff;
+    .ui-dialog-titlebar {
+        background-color: #024382 !important;
+        color: #fff !important;
         font-weight: normal;
         font-size: 1.25em;
     }
 
-    .form-horizontal{
+    .form-horizontal {
         background: #e6e6e6;
         padding: 1.5em;
         border-radius: 1.5em;
         margin: 0.5em;
     }
 
-    #datetimepicker{
+    #datetimepicker {
         width: 125px;
-        text-align:center;
+        text-align: center;
     }
 
-    #ListPopupDelete,#TaskPopupDelete{
-    background: #e6e6e6;
-    border-radius: 1.5em;
-    margin: 15px;
-    padding: 15px;
-    font-family: "Lato", "Helvetica Neue", "Helvetica", Sans-Serif;
+    #ListPopupDelete, #TaskPopupDelete {
+        background: #e6e6e6;
+        border-radius: 1.5em;
+        margin: 15px;
+        padding: 15px;
+        font-family: "Lato", "Helvetica Neue", "Helvetica", Sans-Serif;
     }
 
-    #ListDelYes,#TaskDelYes{
+    #ListDelYes, #TaskDelYes {
         background: darkred;
         border: none;
         border-radius: 5px;
         color: #fff;
         font-family: "Lato", "Helvetica Neue", "Helvetica", Sans-Serif;
     }
-
 </style>
 
-    <div class="flex-child1">
+<div class="flex-child1">
 
-        <h3>My Lists</h3>
-        <div id="tableList"></div>
-        <div id="ListCreate">
-            @using (Ajax.BeginForm("AjaxCreateList", "ToDoes", new AjaxOptions
-            {
-                InsertionMode = InsertionMode.Replace,
-                HttpMethod = "POST",
-                UpdateTargetId = "tableList",
-                OnSuccess = "resetFormList"
-            }))
-            {
-                <div class="form-group">
-                    @Html.AntiForgeryToken()
-                    <div>
-                        @Html.EditorFor(model => model.toDoList.Desc, new { htmlAttributes = new { @class = "form-control", @placeholder = "enter new list name" } })
-                        @Html.ValidationMessageFor(model => model.toDoList.Desc, "", new { @class = "text-danger" })
-                    </div>
+    <h3>My Lists</h3>
+    <div id="tableList"></div>
+    <div id="ListCreate">
+
+        @*On enter click an ajax call is raised to create a list item*@
+        @using (Ajax.BeginForm("AjaxCreateList", "ToDoes", new AjaxOptions
+        {
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "POST",
+            UpdateTargetId = "tableList",
+            OnSuccess = "resetFormList"
+        }))
+        {
+            <div class="form-group">
+                @Html.AntiForgeryToken()
+                <div>
+                    @Html.EditorFor(model => model.toDoList.Desc, new { htmlAttributes = new { @class = "form-control", @placeholder = "enter new list name" } })
+                    @Html.ValidationMessageFor(model => model.toDoList.Desc, "", new { @class = "text-danger" })
                 </div>
-            }
+            </div>
+        }
+    </div>
+</div>
+
+<div class="flex-child2">
+    <div id="tableDiv"></div>
+    <div id="toDoCreateForm">
+        @*On enter click an ajax call is raised to create a task item for a respective list*@
+        @using (Ajax.BeginForm("AjaxCreateTask", "ToDoes", new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        UpdateTargetId = "tableDiv",
+        OnSuccess = "resetFormTask"
+    }))
+    {
+        <div class="form-group">
+            @Html.AntiForgeryToken()
+            <div>
+                @Html.EditorFor(model => Model.toDoTask.Desc, new { htmlAttributes = new { @class = "form-control", @placeholder = "enter new task name" } })
+                @Html.ValidationMessageFor(model => Model.toDoTask.Desc, "", new { @class = "text-danger" })
+            </div>
         </div>
+}
     </div>
 
-    <div class="flex-child2">
-        <div id="tableDiv"></div>
-        <div id="toDoCreateForm">
-            @using (Ajax.BeginForm("AjaxCreateTask", "ToDoes", new AjaxOptions
-            {
-                InsertionMode = InsertionMode.Replace,
-                HttpMethod = "POST",
-                UpdateTargetId = "tableDiv",
-                OnSuccess = "resetFormTask"
-            }))
-            {
-                <div class="form-group">
-                    @Html.AntiForgeryToken()
-                    <div>
-                        @Html.EditorFor(model => Model.toDoTask.Desc, new { htmlAttributes = new { @class = "form-control", @placeholder = "enter new task name" } })
-                        @Html.ValidationMessageFor(model => Model.toDoTask.Desc, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            }
-        </div>
-
-        <!--Below is the hidden div for List Edit dialogue-->
-        <div id="ListPopupEdit" style="display:none;"></div>
-        <!--Below is the hidden div for List Delete dialogue-->
-        <div id="ListPopupDelete" style="display:none;">
-            <p><b> Are you sure you want to delete this list?</b></p>
-            <input type="button" id="ListDelYes" class="col-md-offset-4 col-md-4 col-xs-offset-4 col-xs-4 btn btn-default" value="Go Ahead!" onclick="ListDelYes()" />
-        </div>
-
-        <!--Below is the hidden div for Task Edit dialogue-->
-        <div id="TaskPopupEdit" style="display:none;"></div>
-        <!--Below is the hidden div for Task Delete dialogue-->
-        <div id="TaskPopupDelete" style="display:none;">
-            <p><b> Are you sure you want to delete this task?</b></p>
-            <input type="button" id="TaskDelYes" class="col-md-offset-4 col-md-4 col-xs-offset-4 col-xs-4 btn btn-default" value="Go Ahead!" onclick="TaskDelYes()"/>
-        </div>
+    <!--Below is the hidden div for List Edit dialogue-->
+    <div id="ListPopupEdit" style="display:none;"></div>
+    <!--Below is the hidden div for List Delete dialogue-->
+    <div id="ListPopupDelete" style="display:none;">
+        <p><b> Are you sure you want to delete this list?</b></p>
+        <input type="button" id="ListDelYes" class="col-md-offset-4 col-md-4 col-xs-offset-4 col-xs-4 btn btn-default" value="Go Ahead!" onclick="ListDelYes()" />
     </div>
+
+    <!--Below is the hidden div for Task Edit dialogue-->
+    <div id="TaskPopupEdit" style="display:none;"></div>
+    <!--Below is the hidden div for Task Delete dialogue-->
+    <div id="TaskPopupDelete" style="display:none;">
+        <p><b> Are you sure you want to delete this task?</b></p>
+        <input type="button" id="TaskDelYes" class="col-md-offset-4 col-md-4 col-xs-offset-4 col-xs-4 btn btn-default" value="Go Ahead!" onclick="TaskDelYes()" />
+    </div>
+</div>
 
 <!--Below code loads updated task list as left while edit screen is loaded-->
 @if (ViewBag.BoolEdit == 'Y')
@@ -248,72 +250,80 @@
 
 
 @section Scripts{
-@Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <link rel="stylesheet" href="~/Content/jquery-ui.css">
+
     <script src="~/CustomUnits/ToDoTable.js"></script>
+   
+
     <script src="~/Scripts/jquery-ui.js"></script>
     <script type="text/javascript">
-            //Executed when list item is clicked, displays the empty input box for new task creation
-            function loadTaskForm() {
-                $("#toDoCreateForm").show();
-            }
-            //empties the input form for List after new list item is added
-            function resetFormList() {
-                $('#toDoList_Desc').val('');
-            }
-            //empties the input form for Task after new task item is added
-            function resetFormTask() {
-                $('#toDoTask_Desc').val ('');
-            }
+        //Executed when list item is clicked, displays the empty input box for new task creation
+        function loadTaskForm() {
+            $("#toDoCreateForm").show();
+        }
+        //empties the input form for List after new list item is added
+        function resetFormList() {
+            $('#toDoList_Desc').val('');
+        }
+        //empties the input form for Task after new task item is added
+        function resetFormTask() {
+            $('#toDoTask_Desc').val('');
+        }
 
-            // builds an empty dialog for List Edit
-            $(document).ready(function () {
-                $("#ListPopupEdit").dialog({
-                    autoOpen: false,
-                    title: 'Edit List',
-                    width: 'auto',
-                    height: 'auto',
-                    modal: true
-                });
+        // builds an empty dialog for List Edit
+        $(document).ready(function () {
+            $("#ListPopupEdit").dialog({
+                autoOpen: false,
+                title: 'Edit List',
+                width: 'auto',
+                height: 'auto',
+                modal: true
             });
-            // builds an empty dialog for List Delete
-            $(document).ready(function () {
-                $("#ListPopupDelete").dialog({
-                    autoOpen: false,
-                    title: 'Delete List',
-                    width: 'auto',
-                    height: 'auto',
-                    modal: true
-                });
+        });
+        // builds an empty dialog for List Delete
+        $(document).ready(function () {
+            $("#ListPopupDelete").dialog({
+                autoOpen: false,
+                title: 'Delete List',
+                width: 'auto',
+                height: 'auto',
+                modal: true
             });
-            //Displays the hidden List Edit dialog and calls List edit fn ajax'ly
-            function ListPopupEdit(Id) {
-                $("#ListPopupEdit").dialog("open");
-                $.ajax({
-                    url: "/ToDoes/EditList/" + Id,
-                    success: function (result) {
-                        $("#ListPopupEdit").html(result);
-                    }
-                });
-            }
-            //Displays the hidden List delete dialog
-            var ListDeleteId;
-            function ListPopupDelete(id) {
-                $("#ListPopupDelete").dialog("open");
-                ListDeleteId = id;
-            }
-            //Called when List Delete is confirmed, calls List Delete ajax'ly
-            function ListDelYes(){
-                $.ajax({
-                    type: 'POST',
-                    url: 'ToDoes/DeleteList/' + ListDeleteId,
-                    success: function(){
-                        location.reload();
-                    }
-                })
-            }
+        });
+        //Displays the hidden List Edit dialog and calls List edit fn ajax'ly
+        function ListPopupEdit(Id) {
+            $("#ListPopupEdit").dialog("open");
+            $.ajax({
+                url: "/ToDoes/EditList/" + Id,
+                success: function (result) {
+                    $("#ListPopupEdit").html(result);
+                }
+            });
+        }
+        //Displays the hidden List delete dialog
+        var ListDeleteId;
+        function ListPopupDelete(id) {
+            $("#ListPopupDelete").dialog("open");
+            ListDeleteId = id;
+        }
+        //Called when List Delete is confirmed, calls List Delete ajax'ly
+        function ListDelYes() {
+            $.ajax({
+                type: 'POST',
+                url: 'ToDoes/DeleteList/' + ListDeleteId,
+                success: function () {
+                    location.reload();
+                }
+            })
+        }
 
         // builds an empty dialog for Task Edit
         $(document).ready(function () {
+
+          
             $("#TaskPopupEdit").dialog({
                 autoOpen: false,
                 title: 'Edit Task',
@@ -349,11 +359,11 @@
             TaskDeleteId = id;
         }
         //Called when Task Delete is confirmed, calls Task Delete ajax'ly
-        function TaskDelYes(){
+        function TaskDelYes() {
             $.ajax({
                 type: 'POST',
                 url: 'ToDoes/Delete/' + TaskDeleteId,
-                success: function(result){
+                success: function (result) {
                     $("#tableDiv").html(result);
                     $("#TaskPopupDelete").dialog("close");
                 }

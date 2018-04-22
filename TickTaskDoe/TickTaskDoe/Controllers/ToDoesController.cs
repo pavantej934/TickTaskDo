@@ -171,7 +171,7 @@ namespace TickTaskDoe.Controllers
         {
             string ListID = TempData["ListId"].ToString();
             if (ModelState.IsValid)
-            {              
+            {
                 string CurrUserID = User.Identity.GetUserId();
                 ApplicationUser CurrUser = db.Users.FirstOrDefault
                     (x => x.Id == CurrUserID);
@@ -183,14 +183,43 @@ namespace TickTaskDoe.Controllers
                 {
                     toDoTask.ListId = Convert.ToInt32(TempData["ListId"]);
                 }
-                
+                int currTaskPriority = 0;
+                int rowcount = db.ToDoTasks.ToList().Where(x => x.User == CurrUser && x.ListId == Convert.ToInt32(ListID)).Count();
+
+                if (rowcount > 0)
+                    currTaskPriority = db.ToDoTasks.ToList().Where(x => x.User == CurrUser && x.ListId == Convert.ToInt32(ListID)).Select(x => x.TaskPriority).OrderByDescending(x => x).First();
+
+                toDoTask.TaskPriority = currTaskPriority + 1;
+
                 db.ToDoTasks.Add(toDoTask);
                 db.SaveChanges();
                 TempData["ListId"] = ListID;
             }
 
             return PartialView("_ToDoTable", MyToDoTask(toDoTask.ListId));
+
         }
+
+        /// <summary>
+        /// Update Task order on row drag and drop. This method fires for every row change during row drag and drop
+        /// </summary>
+        /// <param name="id"> row id </param>
+        /// <param name="fromPosition">from position priority id</param>
+        /// <param name="toPosition">to position priority id</param>
+        public void UpdateOrder(int id, int fromPosition, int toPosition)
+        {
+            string ListID = TempData["ListId"].ToString();
+            TempData["ListId"] = ListID;
+            string CurrUserID = User.Identity.GetUserId();
+            ApplicationUser CurrUser = db.Users.FirstOrDefault
+                (x => x.Id == CurrUserID);
+                // update task priority for all the rows whose priority is changed after drag and drop
+                db.ToDoTasks.ToList().First(c => c.User == CurrUser && c.TaskPriority == id && c.ListId == Convert.ToInt32(ListID)).TaskPriority = toPosition;
+                db.SaveChanges();
+           
+        }
+
+
 
         /// <summary>
         /// Called to load the partial view for List edit
@@ -363,7 +392,20 @@ namespace TickTaskDoe.Controllers
             string ListName = db.ToDoLists.First(m => m.Id == ListId).Desc;
 
             ToDoTask toDo = db.ToDoTasks.Find(id);
+
             db.ToDoTasks.Remove(toDo);
+
+            string CurrUserID = User.Identity.GetUserId();
+            ApplicationUser CurrUser = db.Users.FirstOrDefault
+                (x => x.Id == CurrUserID);
+
+            var taskList = db.ToDoTasks.ToList().Where(x => x.TaskPriority > toDo.TaskPriority && x.User == CurrUser && x.ListId == ListId);
+
+            foreach(var listitem in taskList)
+            {
+                db.ToDoTasks.ToList().First(c => c.Id==listitem.Id && c.User == CurrUser  && c.ListId == ListId).TaskPriority--;
+            }
+           
             db.SaveChanges();
 
             return RedirectToAction("ToDoTaskTable", new {ListId = ListId,ListName = ListName});
@@ -378,6 +420,11 @@ namespace TickTaskDoe.Controllers
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Get user login information
+        /// </summary>
+        /// <param name="userId">user id</param>
+        /// <returns>return user information</returns>
         public string[] GetUserDetails(string userId)
         {
             string[] userDetails = new string[2];

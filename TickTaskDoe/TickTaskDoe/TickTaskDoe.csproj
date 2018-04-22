@@ -266,6 +266,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery.dataTables.min.css" />
+    <Content Include="Content\responsive.dataTables.min.css" />
+    <Content Include="Content\rowReorder.dataTables.min.css" />
     <Content Include="CustomUnits\DoneEventListener.js" />
     <Content Include="CustomUnits\PostLoginSummary.js" />
     <Content Include="CustomUnits\ToDoTable.js" />
@@ -274,11 +277,28 @@
     <Content Include="Content\Site.css" />
     <Content Include="images\Background4.png" />
     <Content Include="images\checkmark.svg" />
+    <Content Include="images\Clock.jpg.jpg" />
+    <Content Include="images\Clock_mob.jpg" />
     <Content Include="images\favicon.ico" />
+    <Content Include="images\Final_mascot2.png" />
+    <Content Include="images\Image_Running.jpg" />
+    <Content Include="images\Image_Running2.jpg" />
+    <Content Include="images\Image_Running2_mob.jpg" />
+    <Content Include="images\Image_Running3.jpg" />
     <Content Include="images\ListBackground.jpg" />
     <Content Include="images\Logo.png" />
+    <Content Include="images\main_image.jpg" />
+    <Content Include="images\main_image_mob.jpg" />
+    <Content Include="images\maxresdefault.jpg" />
+    <Content Include="images\Planning is fun.jpg" />
+    <Content Include="images\Planning is fun_mob.jpg" />
     <Content Include="images\reminder.svg" />
     <Content Include="images\shared.svg" />
+    <Content Include="images\sort_asc.png" />
+    <Content Include="images\sort_asc_disabled.png" />
+    <Content Include="images\sort_both.png" />
+    <Content Include="images\sort_desc.png" />
+    <Content Include="images\sort_desc_disabled.png" />
     <Content Include="images\TicTaskDo_Logo.png" />
     <Content Include="images\TicTaskDo_Logo_burned.png" />
     <Content Include="images\ui-icons_444444_256x240.png" />
@@ -295,10 +315,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\dataTables.responsive.min.js" />
+    <Content Include="Scripts\dataTables.rowReorder.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />

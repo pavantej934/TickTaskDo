@@ -17,6 +17,7 @@ namespace TickTaskDoe.Models
         public bool EmailNotification { get; set; }
 
         public DateTime? DueDate { get; set; }
+        public int TaskPriority { get; set; }
 
         public virtual ApplicationUser User { get; set; }
 
